@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+	
+	\title{Teoría de Conjuntos}
+	\author{Fernando González}
+	\date{}
+	\maketitle
+	
+	\section{Conceptos Fundamentales}
+	
+	\subsection{Conjuntos y Operaciones}
+	Un conjunto es una colección de elementos. Se denota por letras mayúsculas ($A, B, C, \dots$). 
+	
+	\textbf{Operaciones básicas:}
+	\begin{itemize}
+		\item \textbf{Unión:} $A \cup B = \{ x \mid x \in A \text{ o } x \in B \}$.
+		\item \textbf{Intersección:} $A \cap B = \{ x \mid x \in A \text{ y } x \in B \}$.
+		\item \textbf{Diferencia:} $A - B = \{ x \mid x \in A \text{ y } x \notin B \}$.
+		\item \textbf{Complemento:} $A^c = \{ x \mid x \notin A \}$.
+	\end{itemize}
+	
+	\textbf{Propiedades:}
+	\begin{itemize}
+		\item Conmutatividad: $A \cup B = B \cup A$, $A \cap B = B \cap A$.
+		\item Asociatividad: $(A \cup B) \cup C = A \cup (B \cup C)$.
+		\item Distributividad: $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$.
+		\item Leyes de De Morgan: $(A \cup B)^c = A^c \cap B^c$ y $(A \cap B)^c = A^c \cup B^c$.
+	\end{itemize}
+	
+	\subsection{Particiones de un Conjunto}
+	Una partición de un conjunto $S$ es una colección de subconjuntos $\{ A_1, A_2, \dots \}$ tal que:
+	\begin{itemize}
+		\item $\bigcup_{i} A_i = S$ (cobertura total).
+		\item $A_i \cap A_j = \emptyset$ para $i \neq j$ (disjuntos entre sí).
+		\item $A_i \neq \emptyset$.
+	\end{itemize}
+	
+	Ejemplo: Si $S = \{1,2,3,4,5,6\}$, una partición posible es:
+	\[ A_1 = \{1,2\}, \quad A_2 = \{3,4\}, \quad A_3 = \{5,6\}. \]
+	
+	\subsection{Principio de la Multiplicación}
+	Si un proceso tiene $k$ etapas sucesivas con $n_1, n_2, \dots, n_k$ maneras de realizar cada una, el número total de formas es:
+	\[ N = n_1 \times n_2 \times \dots \times n_k. \]
+	
+	Ejemplo: Si un menú tiene 3 entradas, 2 platos fuertes y 4 postres, las combinaciones posibles son:
+	\[ 3 \times 2 \times 4 = 24. \]
+	
+	\section{Ejercicios}
+	
+	\subsection{Ejercicio 1: Operaciones con Conjuntos}
+	En una universidad, se encuestó a 70 estudiantes sobre su participación en clubes:
+	\begin{itemize}
+		\item $|M| = 40$ (Matemáticas).
+		\item $|F| = 30$ (Física).
+		\item $|M \cap F| = 10$ (Ambos clubes).
+	\end{itemize}
+	Responde:
+	\begin{enumerate}
+		\item ¿Cuántos estudiantes están en al menos un club?
+		\item ¿Cuántos no están en ningún club?
+		\item ¿Cuántos están solo en Matemáticas?
+	\end{enumerate}
+	
+	\subsection{Ejercicio 2: Partición y Probabilidad Total}
+	Un estudiante estudia para un examen de tres maneras:
+	\begin{itemize}
+		\item Solo ($A_1$) con probabilidad $0.4$, éxito $0.8$.
+		\item En grupo ($A_2$) con probabilidad $0.35$, éxito $0.9$.
+		\item No estudia ($A_3$) con probabilidad $0.25$, éxito $0.3$.
+	\end{itemize}
+	Responde:
+	\begin{enumerate}
+		\item Demuestra que $\{A_1, A_2, A_3\}$ es una partición.
+		\item ¿Cuál es la probabilidad total de aprobar el examen?
+	\end{enumerate}
+	
+	\subsection{Ejercicio 3: Claves de Acceso y Conteo}
+	Una clave tiene 3 letras mayúsculas seguidas de 3 dígitos numéricos. Las letras pueden repetirse, los números no.
+	\begin{enumerate}
+		\item ¿Cuántas claves distintas pueden generarse?
+		\item ¿Cuál es la probabilidad de que una clave empiece con "A" y termine en 7?
+	\end{enumerate}
+	
+\end{document}
