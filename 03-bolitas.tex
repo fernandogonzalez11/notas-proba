@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+
+\begin{document}
+	
+	\title{Espacio Muestral en una Extracción de Bolas sin Reposición}
+	\author{Fernando González}
+	\date{}
+	\maketitle
+	
+	\section{Definición del Problema}
+	
+	Tenemos 5 bolas: 3 azules y 2 rojas, indexadas como \{a1, a2, a3, r1, r2\}. Extraemos dos bolas sin reposición y queremos calcular la probabilidad de que sean de diferente color.
+	
+	\section{Espacio Muestral y Equiprobabilidad}
+	
+	Se podría definir un conjunto de pares sin importar el orden:
+	\begin{equation*}
+		A = \{ \{a1, a2\}, \{a1, a3\}, \{a1, r1\}, \{a1, r2\}, \dots \}
+	\end{equation*}
+	
+	Sin embargo, este enfoque no es equiprobable porque no considera el orden en que se extraen las bolas.
+	
+	\section{Espacio Muestral Correcto}
+	
+	Para modelar correctamente el experimento, debemos considerar los pares ordenados \((B_1, B_2)\), donde la primera y segunda extracción importan:
+	\begin{equation*}
+		\Omega = \{ (a1, a2), (a1, a3), (a1, r1), (a1, r2), (a2, a1), (a2, a3), (a2, r1), \dots, (r2, a3), (r2, r1) \}
+	\end{equation*}
+	
+	Cada par ordenado tiene la misma probabilidad de ocurrir porque en cada extracción cualquier bola restante tiene la misma probabilidad de ser elegida. Como hay $5 \times 4 = 20$ pares ordenados, cada uno tiene probabilidad $\frac{1}{20}$.
+	
+	\section{Impacto en el Cálculo de Probabilidades}
+	
+	Si definimos los eventos como pares no ordenados \( \{B_1, B_2\} \), agrupamos elementos de \( \Omega \) sin considerar que algunos ocurren con mayor frecuencia. Por ejemplo, el conjunto \( \{a1, a2\} \) puede formarse de dos maneras: \((a1, a2)\) y \((a2, a1)\), por lo que su probabilidad real es la suma de ambas.
+	
+	Los pares de distinto color también pueden formarse de dos maneras (ejemplo: \((a1, r1)\) y \((r1, a1)\)), lo que mantiene la probabilidad correcta para ellos, pero en general, perder el orden hace que las probabilidades no sean uniformes para cada subconjunto en \( A \).
+	
+	\section{Conclusión}
+	
+	El espacio de pares sin orden no es equiprobable porque diferentes eventos pueden formarse de distintas maneras en el experimento de extracción secuencial. Para un modelo correcto, el espacio muestral debe considerar el orden en el que se extraen las bolas.
+	
+\end{document}
