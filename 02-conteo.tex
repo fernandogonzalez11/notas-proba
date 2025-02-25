@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+	
+	\title{Principios de Conteo}
+	\author{Fernando González}
+	\date{}
+	\maketitle
+	
+	\section{Permutaciones}
+	Las permutaciones cuentan de cuántas maneras se pueden ordenar $r$ elementos de un conjunto de $n$ elementos, considerando el orden:
+	\begin{equation}
+		P(n, r) = \frac{n!}{(n - r)!}
+	\end{equation}
+	
+	\section{Combinaciones}
+	Las combinaciones cuentan de cuántas maneras se pueden seleccionar $r$ elementos de un conjunto de $n$ elementos, sin importar el orden:
+	\begin{equation}
+		C(n, r) = \frac{n!}{r!(n - r)!}
+	\end{equation}
+	
+	\section{Combinaciones con Repetición}
+	Cuando los elementos pueden repetirse, el número de maneras de seleccionar $r$ elementos de un conjunto de $n$ elementos es:
+	\begin{equation}
+		C(n+r-1, r) = \frac{(n+r-1)!}{r!(n-1)!}
+	\end{equation}
+	
+	\subsection{Razón}
+	Se puede pensar como una secuencia de $n$ elementos indistinguibles que vamos a separar con $r - 1$ separadores (para formar $r$ grupos). Nótese, entonces, que tendremos $n + r - 1$ posiciones.
+	
+	Si nos olvidamos de los elementos, queremos buscar las maneras en que podemos colocar $r - 1$ separadores en nuestras $n + r - 1$ posiciones. Como 
+	
+	\section{Ejercicios}
+	\begin{enumerate}
+		\item ¿Cuántas maneras hay de ordenar 4 letras distintas de un alfabeto de 10 letras?
+		\item ¿De cuántas formas se pueden elegir 5 jugadores de un grupo de 12?
+		\item ¿Cuántas formas hay de distribuir 8 caramelos entre 3 niños?
+	\end{enumerate}
+	
+\end{document}
