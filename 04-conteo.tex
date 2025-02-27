@@ -1,0 +1,127 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\title{Respuestas a ejercicios de probabilidad}
+\author{Fernando González}
+\date{}
+\maketitle
+
+
+\section{Ejercicio 1}
+
+Se tiene un conjunto \( X = \{0, 1, 2, 3, 5, 7, 8\} \) y se desean formar números de 3 dígitos distintos.
+
+\textbf{a)} ¿Cuál es la probabilidad de que la suma de los números sea al menos 6?
+
+Queremos calcular la probabilidad de que la suma de dos bolas sacadas esté entre 5 y 11, ambos inclusive.
+
+El espacio muestral tiene \( 6 	\times 6 = 36 \) casos posibles (porque hay 6 bolas amarillas y 6 bolas rojas).
+
+El conjunto de casos favorables es \( \{(2, 3), (3, 2), (1, 5), (5, 1), ...\} \).
+
+La probabilidad de que la suma esté entre 5 y 11 es de:
+
+\[
+P = \frac{30}{36} = \frac{5}{6}
+\]
+
+\textbf{b)} ¿Cuál es la probabilidad de que al menos una bola tenga número impar?
+
+Definimos dos eventos: \( A \) y \( B \) corresponden a que una de las bolas tiene número impar. La probabilidad es:
+
+\[
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+\]
+
+\section{Ejercicio de Ana y María}
+
+Se tiene un grupo de 4 hombres y 3 mujeres (Ana, Lucía, María). Se elige 1 hombre y 1 mujer.
+
+\textbf{a)} ¿Cuál es la probabilidad de que sea Ana o María?
+
+El espacio muestral tiene 4 hombres y 3 mujeres, por lo que el total de posibles elecciones es:
+
+\[
+4 \times 3 = 12
+\]
+
+Los casos favorables son cuando la mujer elegida es Ana o María, lo que nos da 2 posibles elecciones de mujer. Así que los casos favorables son:
+
+\[
+4 \times 2 = 8
+\]
+
+Por lo tanto, la probabilidad es:
+
+\[
+P(A \cup M) = \frac{8}{12} = \frac{2}{3}
+\]
+
+\section{Ejercicio de 3 dígitos con los elementos del conjunto \( X = \{0,1,2,3,5,7,8\} \)}
+
+El número de números de tres dígitos formados por el conjunto es de \( 6 \times 5 \times 4 = 120 \).
+
+\textbf{a)} ¿Cuántos números de 3 cifras distintas se pueden formar que sean múltiplos de 5 o impares?
+
+Para contar los números pares y múltiplos de 5, calculamos lo siguiente:
+
+\begin{itemize}
+    \item Los números pares tienen última cifra 0, 2 o 8, por lo que sumando los casos, obtenemos: 
+    \[
+    30 + 25 + 25 = 80
+    \]
+    \item Los múltiplos de 5 tienen última cifra 0 o 5, por lo que la cuenta es:
+    \[
+    30 + 25 = 55
+    \]
+    \item Los números que son pares y múltiplos de 5 tienen última cifra 0, y deben ser contados una sola vez. Entonces, la cuenta final usando la regla de inclusión-exclusión es:
+    \[
+    80 + 55 - 30 = 105
+    \]
+\end{itemize}
+
+\textbf{b)} ¿Cuál es la probabilidad de que un número formado sea par o múltiplo de 5?
+
+La probabilidad de que un número formado sea par o múltiplo de 5 es:
+
+\[
+P = \frac{105}{120} = \frac{7}{8}
+\]
+
+\section{Principio de la Suma y del Producto}
+
+\subsection{Principio de la Suma}
+
+Si \( A \) y \( B \) son conjuntos disjuntos, entonces la cantidad de elementos en su unión es la suma de sus cardinalidades:
+
+\[
+|A \cup B| = |A| + |B|
+\]
+
+Si los conjuntos no son disjuntos, entonces usamos la regla de inclusión-exclusión:
+
+\[
+|A \cup B| = |A| + |B| - |A \cap B|
+\]
+
+\subsection{Principio del Producto}
+
+El número de elementos en el producto cartesiano de dos conjuntos \( A \) y \( B \) es el producto de sus cardinalidades:
+
+\[
+|A \times B| = |A| \cdot |B|
+\]
+
+En general, para \( n \) conjuntos \( A_1, A_2, \dots, A_n \):
+
+\[
+|A_1 \times A_2 \times \dots \times A_n| = |A_1| \cdot |A_2| \cdot \dots \cdot |A_n|
+\]
+
+\end{document}
