@@ -1,0 +1,111 @@
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{Permutaciones y combinaciones}
+\author{Fernando González}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Teoría}
+
+\subsection{Permutaciones}
+Dado un conjunto de $n$ elementos distintos, el número de formas en que se pueden ordenar todos ellos se obtiene aplicando el principio del producto y es:
+\begin{equation}
+    P(n) = n \times (n-1) \times \cdots \times 1 = n!
+\end{equation}
+
+Si se desea obtener las permutaciones de r elementos de un conjunto de cardinalidad n, se tiene que:
+\begin{equation}
+    P(n) = n \times (n-1) \times \cdots \times (n - r + 1) = \frac{n!}{(n - r)!}
+\end{equation}
+
+\subsection{Permutaciones con objetos repetidos}
+Si en un conjunto de $n$ elementos hay objetos repetidos, la cantidad de permutaciones se calcula dividiendo por los factoriales de las repeticiones:
+\begin{equation}
+    P(n; k_1, k_2, \dots, k_m) = \frac{n!}{k_1! k_2! \dots k_m!}
+\end{equation}
+donde $k_i$ representa la cantidad de veces que se repite un objeto.
+
+\subsection{Combinaciones}
+Las combinaciones cuentan cuántas formas hay de seleccionar $k$ elementos de un conjunto de $n$ elementos sin importar el orden:
+\begin{equation}
+    C(n, k) = \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\end{equation}
+
+\section{Ejemplos}
+
+\subsection{Ejemplo 1: Permutaciones simples}
+¿Cuántas formas distintas se pueden ordenar 5 libros en una estantería?
+
+\textbf{Solución:} Como los 5 libros son diferentes, aplicamos la fórmula de permutaciones:
+\begin{equation}
+    P(5) = 5! = 5 \times 4 \times 3 \times 2 \times 1 = 120
+\end{equation}
+Respuesta: 120 formas.
+
+\subsection{Ejemplo 2: Combinaciones y permutaciones con repetición}
+Un comité de 3 personas debe seleccionarse de un grupo de 10. ¿De cuántas maneras se puede formar el comité?
+
+\textbf{Solución:} Como el orden no importa, usamos combinaciones:
+\begin{equation}
+    C(10, 3) = \frac{10!}{3!(10-3)!} = \frac{10!}{3!7!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = 120
+\end{equation}
+Respuesta: 120 maneras.
+
+\section{Ejercicios}
+
+\begin{enumerate}
+    \item ¿Cuántas formas distintas se pueden ordenar las letras de la palabra "PROBABILIDAD"?
+    \item Un equipo de 4 estudiantes debe ser seleccionado de un grupo de 12. ¿Cuántas maneras hay de hacerlo?
+    \item De un mazo de 52 cartas, ¿de cuántas formas se pueden elegir 5 cartas?
+    \item ¿Cuántos subconjuntos de $S_{25} = \{1, 2,..., 25\}$ de 6 elementos tienen exactamente dos múltiplos de 3 y dos múltiplos de 5?
+\end{enumerate}
+
+\section{Profundización}
+\subsection{Justificación de la fórmula de combinaciones}
+
+Para contar cuántas formas hay de seleccionar $k$ elementos de un conjunto de $n$ sin importar su orden, se puede hacer lo siguiente:
+
+\begin{enumerate}
+    \item Contamos todas las formas de seleccionar y ordenar $k$ de $n$ elementos:
+    \[
+        P(n, k) = \frac{n!}{(n-k)!}
+    \]
+    \item Como el orden no importa, cada selección se contó $k!$ veces, pues esa es la cantidad de ordenamientos que tiene un conjunto singular. Como 1 conjunto representa a $k!$ ordenamientos, se tiene que:
+    \[
+        P(n, k) = k! \, C(n, k) \implies C(n, k) = \frac{P(n, k)}{k!} = \frac{n!}{(n-k)! \, k!}
+    \]
+\end{enumerate}
+
+\section{Anexos}
+\subsection{Pregunta generadora}
+
+\begin{verbatim}
+Yo:    Hola, necesito que me hagas un resumen como archivo .tex de probabilidades
+    con los siguientes contenidos:
+
+    Sección: Teoría
+    - Permutaciones
+    - Permutaciones con objetos repetidos
+    - Combinaciones
+
+    Sección: Ejemplos
+    - 1 o 2 ejemplos que incluyan a estos temas
+
+    Sección: Ejercicios
+    - 3 ejercicios sin respuesta
+
+IA: [respuesta 1]
+
+Yo:    También dame un snippet de LaTeX donde explique brevemente por qué funciona
+    la fórmula de combinaciones
+
+IA: [respuesta 2]
+\end{verbatim}
+
+\end{document}
