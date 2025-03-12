@@ -1,0 +1,117 @@
+\documentclass[letterpaper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.27cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Técnicas adicionales de conteo}
+\author{Fernando González}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Cardinalidad del conjunto de funciones de A en B}
+	
+	Si $A$ y $B$ son conjuntos finitos con $|A| = m$ y $|B| = n$, entonces el número de funciones de $A$ en $B$ es $n^m$.
+	
+	\textbf{Explicación:} Para cada elemento de $A$, tenemos $n$ opciones en $B$. Como hay $m$ elementos en $A$, el número total de funciones es $n \times n \times \cdots \times n$ ($m$ veces), que es $n^m$.
+	
+	\subsection{Conteo de permutaciones con objetos repetidos}
+	
+	Si tenemos $n$ objetos con $n_1$ del primer tipo, $n_2$ del segundo tipo, ..., $n_k$ del $k$-ésimo tipo, donde $n_1 + n_2 + \cdots + n_k = n$, entonces el número de permutaciones distintas es:
+	
+	$$\frac{n!}{n_1! n_2! \cdots n_k!}$$
+	
+	\textbf{Explicación:} Si todos los objetos fueran distintos, tendríamos $n!$ permutaciones. Sin embargo, como tenemos objetos repetidos, debemos dividir por el número de permutaciones de cada tipo de objeto para evitar contar las mismas permutaciones múltiples veces.
+	
+	\subsection{Conteo de combinaciones con repetición}
+	
+	El número de combinaciones de $n$ objetos tomados de $r$ tipos con repetición permitida es:
+	
+	$$\binom{n+r-1}{r}$$
+	
+	\textbf{Explicación:} Podemos representar las combinaciones con repetición mediante una secuencia de $r$ estrellas (objetos) y $n-1$ barras (separadores de tipos). El número total de posiciones es $n+r-1$, y debemos elegir $r$ de ellas para las estrellas.
+	
+	\subsection{Soluciones naturales de $x_1 + x_2 + \cdots + x_n = r$}
+	
+	El número de soluciones naturales (enteros no negativos) de la ecuación $x_1 + x_2 + \cdots + x_n = r$ es:
+	
+	$$\binom{n+r-1}{r}$$
+	
+	\textbf{Explicación:} Esto es equivalente a contar el número de combinaciones con repetición, donde $x_i$ representa el número de objetos del tipo $i$.
+	
+	\subsection{Distribuir objetos distinguibles}
+	
+	Si tenemos $n$ objetos distinguibles y $k$ cajas distinguibles, el número de formas de distribuir los objetos en las cajas es $k^n$.
+	
+	\textbf{Explicación:} Cada objeto puede ser colocado en cualquiera de las $k$ cajas, por lo que tenemos $k$ opciones para cada uno de los $n$ objetos.
+	
+	\subsection{Distribuir objetos no distinguibles}
+	
+	Si tenemos $n$ objetos no distinguibles y $k$ cajas distinguibles, el número de formas de distribuir los objetos en las cajas es:
+	
+	$$\binom{n+k-1}{n}$$
+	
+	\textbf{Explicación:} Esto es equivalente a contar el número de combinaciones con repetición, donde los objetos no distinguibles son las estrellas y las cajas son los tipos.
+	
+	\section{Ejemplos}
+	
+	\subsection{Ejemplo 1}
+	
+	¿Cuántas palabras de 10 letras se pueden formar con las letras de la palabra "MATEMATICAS"?
+	
+	\textbf{Solución:} Tenemos 10 letras en total: 2 M, 3 A, 2 T, 1 E, 1 I, 1 C, 1 S. El número de permutaciones es:
+	
+	$$\frac{10!}{2!3!2!1!1!1!1!} = 151200$$
+	
+	\subsection{Ejemplo 2}
+	
+	¿Cuántas soluciones enteras no negativas tiene la ecuación $x_1 + x_2 + x_3 = 10$?
+	
+	\textbf{Solución:} Usando la fórmula de combinaciones con repetición:
+	
+	$$\binom{3+10-1}{10} = \binom{12}{10} = 66$$
+	
+	\subsection{Ejemplo 3}
+	
+	¿De cuántas maneras se pueden distribuir 7 bolas distintas en 4 cajas diferentes?
+	
+	\textbf{Solución:} Cada bola puede ir a cualquiera de las 4 cajas, por lo que tenemos $4^7 = 16384$ formas.
+	
+	\section{Ejercicios}
+	
+	\begin{enumerate}
+		\item ¿Cuántas cadenas binarias de longitud 10 tienen exactamente 4 unos?
+		\item ¿De cuántas maneras se pueden distribuir 10 bolas idénticas en 3 cajas diferentes si cada caja debe contener al menos 2 bolas?
+		\item ¿Cuántas palabras diferentes se pueden formar con las letras de la palabra "PROBABILIDAD"?
+		\item ¿Cuántas soluciones enteras no negativas tiene la ecuación $x_1 + x_2 + x_3 + x_4 = 20$?
+		\item ¿De cuántas maneras se pueden distribuir 8 libros distintos en 5 estantes diferentes?
+	\end{enumerate}
+	
+	
+	\section{Profundización}
+	\subsection{Independencia y Dependencia de Eventos}
+	
+	\textbf{Definición intuitiva:} Dos eventos $A$ y $B$ son \textit{independientes} si la ocurrencia de uno no afecta la ocurrencia del otro. En otras palabras, saber si $A$ ocurrió no cambia nuestra percepción de si $B$ ocurrió, y viceversa.
+	
+	
+	\textbf{Ejemplo de independencia:} Consideremos el lanzamiento de dos monedas justas. El evento $A$ de que la primera moneda caiga en cara y el evento $B$ de que la segunda moneda caiga en cara son independientes. El resultado de la primera moneda no influye en el resultado de la segunda.
+	
+	
+	\textbf{Ejemplo de dependencia:} Consideremos una urna con bolas rojas y azules. El evento $A$ de sacar una bola roja y el evento $B$ de sacar otra bola roja sin reemplazo son dependientes. Si sacamos una bola roja en el primer intento, la probabilidad de sacar otra bola roja en el segundo intento disminuye.
+	\par
+	
+	\textbf{Cómo discernir independencia sin probabilidad condicional:}
+	
+	\begin{itemize}
+		\item \textbf{Causalidad:} Si los eventos no tienen relación causal entre sí, es probable que sean independientes.
+		\item \textbf{Espacio muestral:} Si el espacio muestral de un evento no se ve alterado por la ocurrencia del otro, es probable que sean independientes.
+		\item \textbf{Intuición:} En muchos casos, la independencia o dependencia de eventos es intuitiva. Sin embargo, es importante ser cauteloso y no confiar únicamente en la intuición.
+	\end{itemize}
+	
+	\textbf{Nota:} La definición formal de independencia se basa en la probabilidad condicional, que se introducirá más adelante. Sin embargo, esta explicación intuitiva proporciona una base sólida para comprender el concepto.
+\end{document}
