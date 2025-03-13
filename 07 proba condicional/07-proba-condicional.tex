@@ -1,0 +1,216 @@
+\documentclass[letterpaper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[margin=1.27cm]{geometry}
+\DeclareUnicodeCharacter{2229}{$\cap$}
+\DeclareUnicodeCharacter{222A}{$\cup$}
+
+\title{Probabilidad condicional}
+\date{}
+\author{Fernando González}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Cálculos de probabilidad con espacios equiprobables}
+	Cuando todos los resultados posibles de un experimento tienen la misma probabilidad de ocurrir, podemos calcular la probabilidad de un evento $A$ como:
+	$$P(A) = \frac{\text{Número de resultados favorables a } A}{\text{Número total de resultados posibles}} = \frac{|A|}{|\Omega|}$$
+	
+	En problemas de probabilidad, es crucial evitar el re-conteo, que ocurre cuando contamos el mismo resultado posible múltiples veces. Esto lleva a sobreestimar el número total de resultados y, por lo tanto, a calcular probabilidades incorrectas.
+	
+	El principio de inclusión-exclusión es una técnica fundamental para evitar el re-conteo cuando contamos el número de elementos en la unión de conjuntos.
+	
+	\subsection{Probabilidad condicional}
+	La probabilidad condicional de $A$ dado $B$ es la probabilidad de que $A$ ocurra, sabiendo que $B$ ha ocurrido:
+	$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+	
+	Esta fórmula se puede ver de la siguiente manera: como $B$ ya ocurrió, el espacio muestral $\Omega$ se restringe para que sea solo $B$. Entonces, los casos favorables en el nuevo espacio son aquellos que, además de cumplir la condición $B$, cumplen la $A$.
+	
+	Note también que:
+	$$P(A \cap B) = P(A | B) \, P(B)$$
+	
+	\subsection{Independencia de eventos}
+	Un evento $A$ es independiente de $B$ si la ocurrencia de $A$ no es afectada por la ocurrencia de $B$. Por lo tanto:
+	
+	$$P(A | B) = P(A)$$
+	
+	Note entonces que si $A$ y $B$ son independientes entre sí:
+	
+	$$P(A \cap B) = P(A)P(B)$$.
+	
+	\subsection{Eventos excluyentes}
+	Dos eventos $A$ y $B$ son excluyentes si no pueden ocurrir simultáneamente ($A \cap B = \emptyset$).
+	\begin{itemize}
+		\item Si $A$ y $B$ son excluyentes: $P(A \cup B) = P(A) + P(B)$
+		\item Si $A$ y $B$ no son excluyentes: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+	\end{itemize}
+	
+	\section{Ejemplos}
+	
+	\subsection{Ejemplo 1}
+	En una clase hay 22 hombres y 6 mujeres. ¿Cuál es la probabilidad de que haya al menos una mujer?
+	
+	\textbf{Solución:}
+	Es más fácil calcular la probabilidad del evento complementario (ninguna mujer) y restarla de 1.
+	$$P(\text{al menos una mujer}) = 1 - P(\text{ninguna mujer}) = 1 - \frac{\binom{22}{28}}{\binom{28}{28}} = 1 - \frac{22}{28} = \frac{6}{28} = \boxed{\frac{3}{14}}$$
+	
+	\subsection{Ejemplo 2}
+	Hay una urna con 4 bolas azules y 3 amarillas. Se eligen 2 de la urna. ¿Cuál es la probabilidad de que la segunda sea amarilla?
+	
+	\,
+	
+	
+	\textbf{Solución:}
+	Podemos usar probabilidad condicional.
+	
+	\begin{itemize}
+		\item $am_1$: primera amarilla
+		\item $am_2$: segunda amarilla
+		\item $az_1$: primera azul
+		\item $az_2$: segunda azul
+	\end{itemize}
+	
+	Se tiene el caso de cuando se elige azul y amarilla, y de cuando se elige amarilla y amarilla. Estos son eventos excluyentes.
+	
+	$$P(am_2) = P(az_1 \cap am_2) + P(am_1 \cap am_2)$$
+	$$= P(az_1)P(am_2 | az_1) + P(am_1)P(am_2 | am_1)$$
+	$$= \frac{4}{7} \cdot \frac{3}{6} + \frac{3}{7} \cdot \frac{2}{6} = \frac{12}{42} + \frac{6}{42} = \frac{18}{42} = \boxed{\frac{3}{7}}$$
+	
+	\subsection{Ejemplo 3}
+	\begin{itemize}
+		\item $P(A) = 0.3$
+		\item $P(B^c) = 0.2$ (donde $B^c$ es el complemento de B)
+		\item $P(C | B) = 0.3$ (probabilidad de C dado B)
+		\item $A$ y $B$ son eventos independientes
+		\item $A$ y $C$ son eventos excluyentes
+		\item $P(A \cup B \cup C) = 0.9$ (probabilidad de A unión B unión C)
+	\end{itemize}
+	
+	¿Cuánto es $P(C)$?
+	
+	\,
+	
+	\textbf{Solución:}
+	\begin{enumerate}
+		\item $P(B^c) = 0.2 \implies P(B) = 1 - P(B^c) = 1 - 0.2 = 0.8$.
+		
+		\item $P(C | B) = \frac{P(C \cap B)}{P(B)} \implies P(C \cap B) = P(C | B) \cdot P(B) = 0.3 \cdot 0.8 = 0.24$.
+		
+		\item $P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$.
+		
+		\item \textbf{Simplificamos usando la independencia y la exclusión:}
+		\begin{itemize}
+			\item $P(A \cap B) = P(A)P(B) = 0.3 \cdot 0.8 = 0.24$ (independencia).
+			\item $P(A \cap C) = 0$ (excluyentes).
+			\item $P(A \cap B \cap C) = 0$ (ya que $A \cap C = 0$).
+		\end{itemize}
+		
+		\item \textbf{Sustituimos en la fórmula:}
+		$0.9 = 0.3 + 0.8 + P(C) - 0.24 - 0 - 0.24 + 0$.
+		
+		\item \textbf{Resolvemos para P(C):}
+		$0.9 = 1.1 + P(C) - 0.48$.
+		$0.9 = 0.62 + P(C)$.
+		$P(C) = 0.9 - 0.62 = 0.28$.
+	\end{enumerate}
+	
+	Por lo tanto, $P(C) = \boxed{0.28}$.
+	
+	\section{Ejercicios}
+	
+	\begin{enumerate}
+		\item Se lanzan dos dados. ¿Cuál es la probabilidad de que la suma sea 7 o 11?
+		\item Se extraen 3 cartas de una baraja de 52 cartas. ¿Cuál es la probabilidad de que las tres cartas sean del mismo palo?
+		\item Una urna contiene 5 bolas rojas y 3 bolas azules. Se extraen 2 bolas sin reemplazo. ¿Cuál es la probabilidad de que ambas bolas sean rojas?
+		\item En una ciudad, el 60\% de las personas ven el programa de televisión A, el 50\% ven el programa B y el 30\% ven ambos. ¿Cuál es la probabilidad de que una persona vea al menos uno de los programas?
+		\item Un examen tiene 10 preguntas de verdadero o falso. Un estudiante responde todas las preguntas al azar. ¿Cuál es la probabilidad de que el estudiante responda correctamente al menos 8 preguntas?
+	\end{enumerate}
+		
+	\section{Profundización}
+	
+	\subsection{Probabilidad Total}
+	
+	La probabilidad total se utiliza para calcular la probabilidad de un evento $A$ cuando este puede ocurrir a través de diferentes eventos $B_1, B_2, ..., B_n$ que particionan el espacio muestral.
+	
+	\begin{equation*}
+		P(A) = \sum_{i=1}^{n} P(A | B_i) P(B_i)
+	\end{equation*}
+	
+	Donde:
+	\begin{itemize}
+		\item $P(A | B_i)$ es la probabilidad de $A$ dado $B_i$.
+		\item $P(B_i)$ es la probabilidad de $B_i$.
+	\end{itemize}
+	
+	\subsection{Regla de Bayes}
+	
+	La regla de Bayes permite calcular la probabilidad condicional inversa, es decir, $P(B | A)$ dado $P(A | B)$.
+	
+	\begin{equation*}
+		P(B | A) = \frac{P(A | B) P(B)}{P(A)}
+	\end{equation*}
+	
+	Donde:
+	\begin{itemize}
+		\item $P(B | A)$ es la probabilidad de $B$ dado $A$.
+		\item $P(A | B)$ es la probabilidad de $A$ dado $B$.
+		\item $P(B)$ es la probabilidad de $B$.
+		\item $P(A)$ se puede calcular usando la probabilidad total.
+	\end{itemize}
+	
+	\subsection{Relación}
+	
+	La probabilidad total se usa frecuentemente para calcular el denominador $P(A)$ en la regla de Bayes.
+	
+	\newpage
+	\section*{Anexo: pregunta generadora}
+	\begin{verbatim}
+		Yo: Hola, soy un estudiante de Computación estudiando Probabilidades.
+		No tengo problema con explicaciones técnicas y pruebas, al igual que
+		explicaciones intuitivas.
+		Genera un resumen del contenido de clase en un archivo .tex.
+		
+		Formato: letterpaper, márgenes de 1.27 cm
+		
+		Sección: Teoría
+		Explicar los siguientes temas. Busca un abordamiento relativamente breve
+		pero no solo poner la fórmula. Busca que la fórmula tenga algún desarrollo
+		breve para llegar a ella, y de esta u otra manera poder a acercarme a cómo
+		y por qué funciona esa fórmula.
+		
+		- Cálculos de probabilidad con espacios equiprobables
+		- Problemas de reconteo	
+		- Independencia de eventos
+		- Probabilidad condicional
+		- P(A | B) = P(A) => A es independiente de B
+		- P(A | B) = P(A ∩ B) / P(A)
+		- P(A ∩ B) si A y B son independientes
+		- Eventos excluyentes y qué pasa con P(A ∪ B) si sí o si no
+		
+		Sección: Ejemplos
+		Explicados (no necesitan ser paso a paso) y con respuesta
+		- En una clase hay 22 hombres y 6 mujeres. ¿Cuál es la probabilidad de que
+		haya al menos una mujer?
+		- Hay una urna con 4 bolas azules y 3 amarillas. Se eligen 2 de la urna.
+		¿Cuál es la probabilidad de que la segunda sea amarilla?
+		- P[A] = 0,3 ; P[B complemento] = 0,2 ; P[C | B] = 0,3 ; A y B son
+		independientes ; A y C son excluyentes ; P[A ∪ B ∪ C] =
+		0,9. ¿Cuánto es P[C]?
+		
+		Sección: Ejercicios
+		- 3 a 5 ejercicios de complejidad media-alta, sin respuesta. 
+		
+		IA: [respuesta 1]
+		
+		Yo: Gracias. Ahora me gustaría un acercamiento no muy extenso hacia la
+		probabilidad total y la regla de Bayes. No necesitas explicarme todo el
+		tema, pero me gustaría un pedazo de información que me acerque a los
+		enunciados que se me harán en clase sobre ello.
+		
+		IA: [respuesta 2]
+	\end{verbatim}
+	
+\end{document}
