@@ -1,0 +1,196 @@
+\documentclass[letterpaper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.27cm]{geometry}
+\usepackage{amsmath}
+
+\title{Más sobre probabilidad condicional}
+\author{Fernando González}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Probabilidad total}
+	
+	Imagina que tienes varios grupos de objetos, y cada grupo tiene una cierta proporción de objetos con una característica particular. La probabilidad total te permite calcular la probabilidad de encontrar un objeto con esa característica al elegir uno al azar de todos los grupos combinados.
+	
+	Formalmente, si tienes eventos $A_1, A_2, ..., A_n$ que forman una partición del espacio muestral (es decir, son mutuamente excluyentes y su unión cubre todo el espacio), y un evento $B$, entonces la probabilidad de $B$ es:
+	
+	\[ P(B) = \sum_{i=1}^{n} P(B|A_i)P(A_i) \]
+	
+	Donde $P(B|A_i)$ es la probabilidad de $B$ dado que $A_i$ ha ocurrido, y $P(A_i)$ es la probabilidad de $A_i$.
+	
+	\subsection{Regla de Bayes}
+	
+	La regla de Bayes te permite actualizar la probabilidad de un evento basado en nueva evidencia. Esencialmente, te dice cómo cambiar tu creencia sobre la probabilidad de algo cuando aprendes nueva información.
+	
+	Matemáticamente, se expresa como:
+	
+	\[ P(A|B) = \frac{P(B|A)P(A)}{P(B)} \]
+	
+	Donde:
+	\begin{itemize}
+		\item $P(A|B)$ es la probabilidad de $A$ dado $B$.
+		\item $P(B|A)$ es la probabilidad de $B$ dado $A$.
+		\item $P(A)$ es la probabilidad a priori de $A$.
+		\item $P(B)$ es la probabilidad total de $B$.
+	\end{itemize}
+	
+	Usando la probabilidad total, podemos reescribir la regla de Bayes como:
+	
+	\[ P(A|B) = \frac{P(B|A)P(A)}{\sum_{i=1}^{n} P(B|A_i)P(A_i)} \]
+	
+	\section{Ejemplos}
+	
+	\subsection{Estudiantes del TEC}
+	
+	Sean:
+	\begin{itemize}
+		\item $C$: Estudiante de Cartago
+		\item $S$: Estudiante de San José
+		\item $O$: Estudiante de otros lugares
+		\item $F$: Estudiante feo
+	\end{itemize}
+	
+	Tenemos:
+	\begin{itemize}
+		\item $P(C) = 0.50$, $P(S) = 0.20$, $P(O) = 0.30$
+		\item $P(F|C) = 0.10$, $P(F|S) = 0.50$, $P(F|O) = 0.02$
+	\end{itemize}
+	
+	Usando la probabilidad total:
+	
+	\[ P(F) = P(F|C)P(C) + P(F|S)P(S) + P(F|O)P(O) = 0.10(0.50) + 0.50(0.20) + 0.02(0.30) = 0.156 \]
+	
+	\textbf{Respuesta:} La probabilidad de que un estudiante sea feo es 0.156.
+	
+	\subsection{Servicios de reparación}
+	
+	Sean:
+	\begin{itemize}
+		\item $A$: Servicio 1 (90\% satisfacción)
+		\item $B$: Servicio 2 (50\% satisfacción)
+		\item $S$: Producto satisfactorio
+	\end{itemize}
+	
+	Queremos:
+	
+	\[ P(S) \geq 0.60 \]
+	
+	Sean $x$ la proporción de productos enviados a $A$ e $y$ la proporción a $B$ ($x+y=1$).
+	
+	\[ P(S) = 0.90x + 0.50y \geq 0.60 \]
+	
+	Sustituyendo $x = 1-y$:
+	
+	\[ 0.90(1-y) + 0.50y \geq 0.60 \]
+	\[ 0.90 - 0.40y \geq 0.60 \]
+	\[ 0.30 \geq 0.40y \]
+	\[ y \leq 0.75 \]
+	
+	\textbf{Respuesta:} El máximo de productos que puede mandar al segundo servicio es el 75\%.
+	
+	\,
+	
+	Dado que el producto fue satisfactorio, queremos $P(B|S)$; es decir, la probabilidad de que el producto satisfactorio haya sido del servicio 2:
+	
+	\[ P(B|S) = \frac{P(S|B)P(B)}{P(S)} = \frac{0.50y}{0.90x + 0.50y} \]
+	
+	Usando $y=0.75$ y $x=0.25$:
+	
+	\[ P(B|S) = \frac{0.50(0.75)}{0.90(0.25) + 0.50(0.75)} = \frac{0.375}{0.6} = 0.625 \]
+	
+	\textbf{Respuesta:} La probabilidad de que el producto venga del taller 2 es 0.625.
+	
+	\subsection{Tornillos defectuosos}
+	
+	Una fábrica tiene tres máquinas que producen tornillos. La máquina A produce el 50\% de los tornillos, la máquina B el 30\% y la máquina C el 20\%. La máquina A produce un 1\% de tornillos defectuosos, la máquina B un 3\% y la máquina C un 2\%. Si se selecciona un tornillo al azar y resulta ser defectuoso, ¿cuál es la probabilidad de que haya sido producido por la máquina B?
+	
+	\, 
+	
+	\textbf{Procedimiento:} Sea \( B \) el evento de que el tornillo provenga de la máquina B y \( D \) el evento de que el tornillo sea defectuoso. Queremos calcular la probabilidad condicional \( P(B \mid D) \), que se obtiene aplicando el Teorema de Bayes:
+	
+	\[
+	P(B \mid D) = \frac{P(D \mid B) P(B)}{P(D)}
+	\]
+	
+	Calculamos \( P(D) \) usando la regla de la probabilidad total:
+	
+	\[
+	P(D) = P(D \mid A) P(A) + P(D \mid B) P(B) + P(D \mid C) P(C)
+	\]
+	
+	Sustituyendo los valores dados:
+	
+	\[
+	P(D) = (0.01 \times 0.5) + (0.03 \times 0.3) + (0.02 \times 0.2)
+	\]
+	
+	\[
+	P(D) = 0.005 + 0.009 + 0.004 = 0.018
+	\]
+	
+	Ahora calculamos \( P(B \mid D) \):
+	
+	\[
+	P(B \mid D) = \frac{(0.03 \times 0.3)}{0.018} = \frac{0.009}{0.018} = 0.5
+	\]
+	
+	\textbf{Respuesta:} La probabilidad de que el tornillo defectuoso haya sido producido por la máquina B es \( 0.5 \) o \( 50\% \).
+	
+	\section{Ejercicios}
+	
+	\begin{enumerate}
+		\item Una empresa tiene dos plantas que producen bombillas. La planta A produce el 60\% de las bombillas y la planta B el 40\%. La planta A produce un 5\% de bombillas defectuosas y la planta B un 10\%. Si se selecciona una bombilla al azar y resulta ser defectuosa, ¿cuál es la probabilidad de que haya sido producida por la planta A?
+		\item Un examen de detección de una enfermedad tiene una sensibilidad del 95\% (es decir, detecta la enfermedad en el 95\% de los casos en que está presente) y una especificidad del 90\% (es decir, da negativo en el 90\% de los casos en que la enfermedad no está presente). La prevalencia de la enfermedad en la población es del 1\%. Si una persona da positivo en el examen, ¿cuál es la probabilidad de que realmente tenga la enfermedad?
+		\item Una urna contiene 3 bolas rojas y 5 bolas azules. Se extraen dos bolas sin reemplazo. Si la segunda bola extraída es roja, ¿cuál es la probabilidad de que la primera bola extraída también haya sido roja?
+	\end{enumerate}
+	
+	\newpage
+	\section*{Anexo: pregunta generadora}
+	\begin{verbatim}
+		Yo: Hola, soy estudiante; no tengo problema con explicaciones técnicas y
+		pruebas, al igual que explicaciones intuitivas.
+		
+		Genera un resumen del contenido de mi clase de Probabilidades en un
+		archivo .tex.
+		
+		Formato: letterpaper, márgenes de 1.27 cm
+		Título: Más sobre probabilidad condicional
+		Autor: Fernando González
+		
+		Sección: Teoría
+		Explicar los siguientes temas sin ejemplos. Breve pero no solo poner la
+		fórmula. Busca que la fórmula tenga algún desarrollo breve para llegar a
+		ella, y de esta u otra manera poder a acercarme a cómo y por qué funciona
+		esa fórmula.
+		- Probabilidad total: un acercamiento intuitivo (sin ejemplos) pero que
+		luego enuncie más formalmente
+		- Regla de Bayes
+		
+		Sección: Ejemplos
+		Explicados (no necesitan ser paso a paso) y con respuesta
+		- Los estudiantes del TEC son 50% de Cartago, 20% de San José y 30% de
+		otros lugares. De Cartago, hay un 10% de feos; de San José, un 50%; de
+		otros, un 2%. Se elige al azar una persona: cuál es la probabilidad de que
+		sea feo?
+		- Una empresa cotiza a 2 servicios de reparación. El primero tiene 90% de
+		satisfacción, el segundo tiene 50%. La empresa manda productos a alguno de
+		los dos, y en total espera tener un margen mayor o igual al 60% de
+		satisfacción. ¿Cuál es el máximo de productos que puede mandar al segundo
+		servicio?
+		- Dado el ejemplo pasado, ahora suponemos que la empresa quedó satisfecha
+		con un producto que mandó. ¿Cuál es la probabilidad de que fue del taller
+		2?
+		- Otro ejemplo de complejidad media-alta que abarque los temas de arriba.
+				
+		Sección: Ejercicios
+		- 3 a 5 ejercicios de complejidad media-alta, sin respuesta.
+		
+		IA: [respuesta 1]
+	\end{verbatim}
+	
+\end{document}
