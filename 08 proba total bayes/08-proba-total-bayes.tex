@@ -149,10 +149,48 @@
 		\item Una urna contiene 3 bolas rojas y 5 bolas azules. Se extraen dos bolas sin reemplazo. Si la segunda bola extraída es roja, ¿cuál es la probabilidad de que la primera bola extraída también haya sido roja?
 	\end{enumerate}
 	
-	\newpage
+	\section{Profundización}
+	
+	\subsection{Particiones en conjuntos y probabilidad}
+	
+	Una partición de un conjunto $S$ es una colección de subconjuntos $\{A_1, A_2, \dots, A_n\}$ tales que:
+	\begin{itemize}
+		\item $\bigcup_{i=1}^{n} A_i = S$ (exhaustividad)
+		\item $A_i \cap A_j = \emptyset$ para $i \neq j$ (mutua exclusión)
+	\end{itemize}
+	
+	\subsubsection{Aplicaciones en probabilidad}
+	
+	\begin{itemize}
+		\item Ley de Probabilidad Total: Se tiene como base una partición del espacio muestral, y se enuncia que $P(B) = \sum_{i=1}^{n} P(B|A_i)P(A_i)$
+		\item Teorema de Bayes: se basa en la ley de probabilidad total y, por lo tanto, en el concepto de particiones
+		\item Definición de espacios muestrales: son útiles para definir espacios muestrales en experimentos con múltiples resultados posibles. Por ejemplo, al lanzar un dado, los eventos "obtener un número par" y "obtener un número impar" forman una partición del espacio muestral
+		\item Variables aleatorias discretas \textbf{(*)}: Cada valor posible de la variable aleatoria puede considerarse como un subconjunto en una partición del espacio muestral
+	\end{itemize}
+	
+	\subsection{Variable aleatoria discreta}
+	
+	Una variable aleatoria discreta es una función que asigna un número a cada resultado de un experimento aleatorio, donde los valores posibles son finitos o contables.
+	
+	\subsubsection{Ejemplos}
+	
+	\begin{itemize}
+		\item Resultado al lanzar un dado: $\{1, 2, 3, 4, 5, 6\}$
+		\item El número de caras obtenidas al lanzar una moneda varias veces.
+		\item Número de llamadas telefónicas recibidas en un centro de atención al cliente en una hora.
+	\end{itemize}
+	
+	\subsubsection{Conexión con conceptos previos}
+	
+	\begin{itemize}
+		\item Conteo de eventos: Las variables aleatorias discretas están estrechamente relacionadas con el conteo, ya que a menudo representan el número de veces que ocurre un evento.
+		\item Espacios equiprobables: En algunos casos, como el lanzamiento de un dado justo, los valores de la variable aleatoria tienen la misma probabilidad de ocurrir (espacio equiprobable).
+		\item Probabilidad condicional: La probabilidad condicional puede usarse para calcular la probabilidad de que una variable aleatoria tome un valor dado, dado que ha ocurrido otro evento.
+	\end{itemize}
+	
 	\section*{Anexo: pregunta generadora}
 	\begin{verbatim}
-		Yo: Hola, soy estudiante; no tengo problema con explicaciones técnicas y
+		[[Yo]]: Hola, soy estudiante; no tengo problema con explicaciones técnicas y
 		pruebas, al igual que explicaciones intuitivas.
 		
 		Genera un resumen del contenido de mi clase de Probabilidades en un
@@ -190,7 +228,21 @@
 		Sección: Ejercicios
 		- 3 a 5 ejercicios de complejidad media-alta, sin respuesta.
 		
-		IA: [respuesta 1]
+		[[IA]]: respuesta 1
+		
+		Yo: Qué son las particiones en conjuntos? Cuáles son algunas propiedades
+		de ellas, particularmente aquellas que puedan ser de utilidad en
+		probabilidades? ¿Cuándo (y/o cuándo no) se puede ver su uso en
+		probabilidades, fuera de la probabilidad total?
+		
+		[[IA]]: respuesta 2
+		
+		[[Yo]]: Brevemente, ¿qué es una variable aleatoria discreta? No he visto ese
+		tema, así que intenta hacer un acercamiento con lo que he visto hasta el
+		momento (conteo, espacios equiprobables y probabilidad condicional), si
+		eso es posible.
+		
+		[[IA]]: respuesta 3
 	\end{verbatim}
 	
 \end{document}
