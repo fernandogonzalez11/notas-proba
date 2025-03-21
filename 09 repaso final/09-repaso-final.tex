@@ -1,0 +1,90 @@
+\documentclass[letterpaper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.27cm]{geometry}
+\usepackage{amsmath}
+
+\title{Repaso final}
+\author{Fernando González}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Aspectos de teoría de conjuntos relevante a probabilidades}
+	La teoría de conjuntos proporciona la base para definir eventos y espacios muestrales. Las operaciones de unión ($A \cup B$), intersección ($A \cap B$) y complemento ($A^c$) son fundamentales para describir relaciones entre eventos.
+	
+	\subsection{Regla de inclusión-exclusión}
+	Permite calcular la probabilidad de la unión de eventos:
+	$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+	Para tres eventos:
+	$$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$$
+	
+	\subsection{Espacio muestral}
+	Es el conjunto de todos los posibles resultados de un experimento aleatorio, denotado como $\Omega$.
+	
+	\subsection{Regla de Laplace}
+	Asigna probabilidades iguales a todos los resultados en un espacio muestral finito y equiprobable:
+	$$P(A) = \frac{|A|}{|\Omega|}$$
+	
+	\subsection{Conteo: ley de la suma y del producto}
+	\subsubsection{Ley de la suma}
+	Si hay $n$ opciones mutuamente excluyentes para realizar una tarea, y $m$ opciones para realizar otra tarea, entonces hay $n + m$ formas de realizar una de las dos tareas.
+	
+	\subsubsection{Ley del producto}
+	Si hay $n$ formas de realizar una tarea y $m$ formas de realizar otra tarea, entonces hay $n \times m$ formas de realizar ambas tareas.
+	
+	\subsection{Permutaciones (anagramas, anagramas de n letras, con objetos repetidos)}
+	Permutaciones de $n$ objetos: $P(n) = n!$
+	
+	\noindent Permutaciones de $n$ objetos con $n_1$ objetos de tipo 1, $n_2$ objetos de tipo 2, ..., $n_k$ objetos de tipo k:
+	$$P(n; n_1, n_2, ..., n_k) = \frac{n!}{n_1! n_2! ... n_k!}$$
+	
+	\subsection{Combinaciones (subconjuntos, distribuir r elementos iguales entre n personas)}
+	Combinaciones de $n$ objetos tomados de $r$ en $r$:
+	$$C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
+	
+	\subsection{Probabilidad condicional e independencia}
+	Probabilidad condicional:
+	$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
+	Independencia: $P(A \cap B) = P(A)P(B)$ o $P(A|B) = P(A)$
+	
+	\subsection{Eventos excluyentes}
+	$P(A \cap B) = 0$
+	
+	\subsection{Probabilidad total}
+	$$P(A) = \sum_{i=1}^{n} P(A|B_i)P(B_i)$$
+	
+	\subsection{Regla de Bayes}
+	$$P(B|A) = \frac{P(A|B)P(B)}{P(A)}$$
+	
+	\section{Ejemplos}
+	
+	\subsection*{Ejemplo 1}
+	Se lanzan dos dados. ¿Cuál es la probabilidad de que la suma sea 7 o 11?
+	
+	\textit{Solución:} Hay 6 resultados posibles para cada dado, por lo que hay $6 \times 6 = 36$ resultados posibles en total. Hay 6 formas de obtener una suma de 7 y 2 formas de obtener una suma de 11. Por lo tanto, la probabilidad es $\frac{6 + 2}{36} = \frac{8}{36} = \frac{2}{9}$.
+	
+	\subsection*{Ejemplo 2}
+	¿Cuántos anagramas se pueden formar con la palabra "MISSISSIPPI"?
+	
+	\textit{Solución:} La palabra tiene 11 letras, con 4 I, 4 S y 2 P. El número de anagramas es $\frac{11!}{4!4!2!} = 34650$.
+	
+	\subsection*{Ejemplo 3}
+	Se extraen dos cartas de una baraja de 52 cartas. ¿Cuál es la probabilidad de que ambas sean ases?
+	
+	\textit{Solución:} Hay 4 ases en la baraja. La probabilidad de que la primera carta sea un as es $\frac{4}{52}$. Dado que la primera carta es un as, la probabilidad de que la segunda carta también sea un as es $\frac{3}{51}$. Por lo tanto, la probabilidad de que ambas cartas sean ases es $\frac{4}{52} \times \frac{3}{51} = \frac{1}{221}$.
+	
+	\section{Ejercicios}
+	
+	\begin{enumerate}
+		\item ¿Cuál es la probabilidad de obtener al menos un 6 al lanzar tres dados?
+		\item ¿Cuántas formas hay de distribuir 10 libros idénticos entre 4 personas?
+		\item Se extraen tres cartas de una baraja de 52 cartas. ¿Cuál es la probabilidad de que las tres sean del mismo palo?
+		\item Hay 10 personas en una fiesta. ¿Cuántos apretones de manos se darán si cada persona saluda a todas las demás?
+		\item Una caja contiene 5 bolas rojas y 3 bolas azules. Se extraen 2 bolas al azar sin reemplazo. ¿Cuál es la probabilidad de que ambas bolas sean rojas?
+	\end{enumerate}
+	
+\end{document}
