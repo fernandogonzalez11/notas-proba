@@ -1,0 +1,456 @@
+\documentclass[letterpaper, 12pt]{article}
+\usepackage[top=1.27cm, bottom=1.27cm, left=1.27cm, right=1.27cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb}
+
+\title{Distribuciones de probabilidad}
+\author{Fernando González}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Variable aleatoria}
+	Una \textbf{variable aleatoria} es una función que asigna valores numéricos a los resultados de un experimento aleatorio. Formalmente, es una aplicación $X: \Omega \to \mathbb{R}$ donde $\Omega$ es el espacio muestral. La importancia de este concepto radica en que nos permite cuantificar resultados cualitativos y aplicar herramientas matemáticas para su análisis. Se clasifican en:
+	
+	\begin{itemize}
+		\item \textbf{Discretas}: Aquellas cuyo conjunto de valores posibles es finito o infinito numerable. Por ejemplo, el número de caras al lanzar una moneda 10 veces (valores: 0,1,...,10).
+		
+		\item \textbf{Continuas}: Variables que pueden tomar cualquier valor en un intervalo real. Por ejemplo, el tiempo de vida de un componente electrónico. En este curso nos enfocaremos principalmente en las discretas.
+	\end{itemize}
+	
+	\subsection{Distribución de probabilidad}
+	La \textbf{función de distribución} (o función de masa de probabilidad para variables discretas) describe completamente el comportamiento probabilístico de una variable aleatoria. Para una v.a. discreta $X$, se define como:
+	
+	\[ P(X = x) = p(x) \]
+	
+	Esta función debe satisfacer dos condiciones fundamentales:
+	\begin{enumerate}
+		\item \textbf{No-negatividad}: $0 \leq p(x) \leq 1$ para todo valor posible $x$ de $X$. Esto garantiza que cada probabilidad individual sea válida.
+		
+		\item \textbf{Normalización}: $\sum_x p(x) = 1$. La suma de todas las probabilidades debe ser 1, lo que refleja que algún valor debe ocurrir con certeza.
+	\end{enumerate}
+	
+	\subsection{Notación}
+	Es crucial entender la notación probabilística:
+	\begin{itemize}
+		\item $P(X = m)$: Probabilidad puntual, la chance exacta de que $X$ tome el valor específico $m$.
+		
+		\item $P(X < m)$: Probabilidad acumulada hasta (pero sin incluir) $m$. Para discretas, equivale a $\sum_{k < m} P(X = k)$.
+		
+		\item $P(a \leq X \leq b)$: Probabilidad de que $X$ caiga en el intervalo cerrado $[a,b]$. Para discretas, se calcula sumando $P(X = k)$ para todos los $k$ enteros entre $a$ y $b$.
+	\end{itemize}
+	
+	\subsection{Función de distribución acumulada (CDF)}
+	La \textbf{función de distribución acumulada} $F(x) = P(X \leq x)$ proporciona la probabilidad de que $X$ sea menor o igual a un valor dado $x$. Para v.a. discretas:
+	
+	\[ F(x) = \sum_{k \leq x} P(X = k) \]
+	
+	Propiedades clave:
+	\begin{itemize}
+		\item Es no decreciente: si $x_1 < x_2$ entonces $F(x_1) \leq F(x_2)$
+		\item Comportamiento en extremos: $\lim_{x\to-\infty} F(x) = 0$ y $\lim_{x\to\infty} F(x) = 1$
+		\item Para discretas, es una función escalonada con saltos en los valores posibles de $X$
+	\end{itemize}
+	
+	\subsection{Esperanza}
+	La \textbf{esperanza matemática} o valor esperado $E[X]$ representa el promedio teórico de $X$ a largo plazo. Para v.a. discretas:
+	
+	\[ E[X] = \sum_x x \cdot p(x) \]
+	
+	Interpretación intuitiva: Si repitiéramos el experimento infinitas veces, $E[X]$ sería el promedio de los valores observados. Es un operador lineal que "baricentra" la distribución de probabilidad.
+	
+	\subsection{Propiedades de la esperanza}
+	\begin{itemize}
+		\item \textbf{Linealidad}: $E[aX + b] = aE[X] + b$ para constantes $a,b$. Esto permite manipular fácilmente transformaciones lineales.
+		
+		\item \textbf{Aditividad}: $E[X + Y] = E[X] + E[Y]$. El valor esperado de una suma es la suma de valores esperados, sin requerir independencia.
+		
+		\item \textbf{Independencia}: Si $X$ e $Y$ son independientes, entonces $E[XY] = E[X]E[Y]$. Esta propiedad falla cuando hay dependencia entre variables.
+	\end{itemize}
+	
+	\subsection{Varianza y desviación estándar}
+	La \textbf{varianza} mide la dispersión de $X$ alrededor de su media:
+	
+	\[ \text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2 \]
+	
+	La \textbf{desviación estándar} $\sigma_X = \sqrt{\text{Var}(X)}$ tiene las mismas unidades que $X$ y proporciona una medida de variabilidad directamente interpretable.
+	
+	\subsection{Propiedades de la varianza}
+	\begin{itemize}
+		\item \textbf{Escalado}: $\text{Var}(aX + b) = a^2 \text{Var}(X)$. Notar que las traslaciones (suma de $b$) no afectan la varianza.
+		
+		\item \textbf{Independencia}: Si $X$ e $Y$ son independientes, $\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)$. La varianza es aditiva para variables independientes.
+	\end{itemize}
+	
+	\subsection{Distribución de Bernoulli}
+	Modela experimentos con exactamente dos resultados posibles (éxito/fracaso). Su función de distribución es:
+	
+	\[ P(X = k) = \begin{cases}
+		p & \text{si } k = 1 \text{ (éxito)} \\
+		1-p & \text{si } k = 0 \text{ (fracaso)}
+	\end{cases} \]
+	
+	Características:
+	\begin{itemize}
+		\item Media: $E[X] = p$ (la probabilidad de éxito)
+		\item Varianza: $\text{Var}(X) = p(1-p)$ (máxima cuando $p=0.5$)
+	\end{itemize}
+	
+	\subsection{Distribución binomial}
+	Describe el número de éxitos en $n$ ensayos Bernoulli independientes con igual probabilidad $p$. Su función de distribución es:
+	
+	\[ P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0,1,\dots,n \]
+	
+	Propiedades:
+	\begin{itemize}
+		\item Media: $E[X] = np$ (intuitivo: número esperado de éxitos)
+		\item Varianza: $\text{Var}(X) = np(1-p)$
+		\item Surge como suma de $n$ Bernoullis independientes
+	\end{itemize}
+	
+	\subsection{Distribución geométrica}
+	Modela el número de ensayos necesarios para obtener el primer éxito en una secuencia de Bernoullis independientes. Su función de distribución es:
+	
+	\[ P(X = k) = (1-p)^{k-1} p, \quad k \in \mathbb{N} \]
+	
+	Propiedades notables:
+	\begin{itemize}
+		\item Media: $E[X] = \frac{1}{p}$ (inversa de la probabilidad de éxito)
+		\item Varianza: $\text{Var}(X) = \frac{1-p}{p^2}$
+		\item Tiene la propiedad de "pérdida de memoria": $P(X > m+n | X > m) = P(X > n)$
+	\end{itemize}
+	
+	\section{Ejemplos}
+	
+	\begin{enumerate}
+		\item \textbf{Binomial}: Se lanza un dado justo 10 veces. La probabilidad de obtener exactamente 3 seises es:
+		\[ P(X = 3) = \binom{10}{3} \left(\frac{1}{6}\right)^3 \left(\frac{5}{6}\right)^7 \approx 0.155 \]
+		
+		\item \textbf{Geométrica}: En una línea de producción, un artículo defectuoso aparece con probabilidad 0.01. La probabilidad de que el primer defectuoso sea el décimo artículo es:
+		\[ P(X = 10) = (0.99)^9 (0.01) \approx 0.0091 \]
+		
+		\item \textbf{Esperanza y varianza}: Si $X \sim \text{Binomial}(n=5, p=0.4)$, entonces:
+		\[ E[X] = 5 \times 0.4 = 2, \quad \text{Var}(X) = 5 \times 0.4 \times 0.6 = 1.2 \]
+	\end{enumerate}
+	
+	\section{Ejercicios}
+	
+	\begin{enumerate}
+		\item Sea $X \sim \text{Binomial}(n=8, p=0.3)$. Calcula $P(2 \leq X < 5)$.
+		
+		\item En una distribución geométrica con $p=0.2$, encuentra el mínimo $k$ tal que $P(X \leq k) \geq 0.75$.
+		
+		\item Demuestra que para $X \sim \text{Bernoulli}(p)$, $\text{Var}(X) = p(1-p)$ usando la definición $\text{Var}(X) = E[X^2] - (E[X])^2$.
+		
+		\item Si $X$ e $Y$ son independientes con $E[X] = 3$, $\text{Var}(X) = 2$, $E[Y] = -1$, $\text{Var}(Y) = 4$, calcula $E[2X - Y + 1]$ y $\text{Var}(2X - Y + 1)$.
+		
+		\item Una v.a. continua tiene PDF $f(x) = kx^2$ para $0 \leq x \leq 2$ y 0 en otro caso. Determina $k$ y calcula $P(0.5 \leq X \leq 1.5)$.
+	\end{enumerate}
+	
+	\section{Profundización: repaso de sumas y series}
+	
+	\subsection{Propiedades fundamentales de sumatorias}
+	
+	\subsubsection{Linealidad y descomposición}
+	
+	Las sumatorias cumplen propiedades algebraicas similares a las integrales. Dos propiedades esenciales son:
+	
+	\begin{itemize}
+		\item \textbf{Linealidad}: La suma es compatible con la suma de términos y con la multiplicación por constantes.
+		\[
+		\sum_{k=1}^n (a_k + b_k) = \sum_{k=1}^n a_k + \sum_{k=1}^n b_k \quad \text{y} \quad \sum_{k=1}^n c \cdot a_k = c \cdot \sum_{k=1}^n a_k
+		\]
+		Esto nos permite "romper" sumas complejas en partes más simples.
+		
+		\item \textbf{Descomposición}: Podemos dividir una suma en segmentos:
+		\[
+		\sum_{k=m}^n a_k = \sum_{k=1}^n a_k - \sum_{k=1}^{m-1} a_k \quad \text{para} \quad m > 1
+		\]
+		Útil cuando queremos calcular sumas parciales.
+	\end{itemize}
+	
+	\subsection{Suma de Gauss (suma de los primeros $n$ naturales)}
+	
+	La famosa fórmula descubierta por Carl Friedrich Gauss de niño:
+	\[
+	\sum_{k=1}^n k = \frac{n(n+1)}{2}
+	\]
+	
+	\subsubsection{Demostración visual}
+	
+	\begin{enumerate}
+		\item Escribe la suma dos veces, una en orden normal y otra en inverso:
+		\[
+		\begin{aligned}
+			S &= 1 + 2 + \cdots + (n-1) + n \\
+			S &= n + (n-1) + \cdots + 2 + 1 \\
+		\end{aligned}
+		\]
+		
+		\item Suma verticalmente:
+		\[
+		2S = \underbrace{(n+1) + (n+1) + \cdots + (n+1)}_{n \text{ veces}} = n(n+1)
+		\]
+		
+		\item Despeja $S$ para obtener el resultado.
+	\end{enumerate}
+	
+	\subsection{Series geométricas}
+	
+	\subsubsection{Suma finita}
+	
+	Para $r \neq 1$, la suma de los primeros $n+1$ términos es:
+	\[
+	\sum_{k=0}^n r^k = \frac{1 - r^{n+1}}{1 - r}
+	\]
+	
+	\subsubsection{Demostración}
+	
+	\begin{enumerate}
+		\item Sea $S_n = 1 + r + r^2 + \cdots + r^n$.
+		
+		\item Multiplica ambos lados por $r$:
+		\[
+		rS_n = r + r^2 + \cdots + r^{n+1}
+		\]
+		
+		\item Resta esta ecuación de la original:
+		\[
+		S_n - rS_n = 1 - r^{n+1} \quad \Rightarrow \quad S_n(1 - r) = 1 - r^{n+1}
+		\]
+		
+		\item Despeja $S_n$ (observa que $1-r \neq 0$):
+		\[
+		S_n = \frac{1 - r^{n+1}}{1 - r}
+		\]
+	\end{enumerate}
+	
+	\subsection{Serie geométrica infinita}
+	
+	Cuando $|r| < 1$, la serie converge a:
+	\[
+	\sum_{k=0}^\infty r^k = \frac{1}{1 - r}
+	\]
+	
+	\subsubsection{Explicación}
+	Al tomar $n \to \infty$ en la suma finita, $r^{n+1} \to 0$ porque $|r| < 1$, dejando solo $\frac{1}{1-r}$.
+	
+	\subsection{Series telescópicas}
+	
+	\[
+	\sum_{k=1}^n (a_{k+1} - a_k) = a_{n+1} - a_1
+	\]
+	
+	\subsubsection{Ejemplo ilustrativo}
+	Considera:
+	\[
+	\sum_{k=1}^n \frac{1}{k(k+1)} = \sum_{k=1}^n \left( \underbrace{\frac{1}{k}}_{a_k} - \underbrace{\frac{1}{k+1}}_{a_{k+1}} \right) = 1 - \frac{1}{n+1}
+	\]
+	La mayoría de términos se cancelan ("colapsan como un telescopio"), dejando solo el primero y el último.
+	
+	\subsection{Binomio de Newton}
+	
+	\[
+	(a + b)^n = \sum_{k=0}^n \binom{n}{k} a^{n-k}b^k
+	\]
+	donde $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ son coeficientes binomiales.
+	
+	\subsubsection{Interpretación}
+	Cada término representa una forma de elegir $k$ factores $b$ y $n-k$ factores $a$ al expandir el producto.
+	
+	\subsection{Series de Taylor y Maclaurin}
+	
+	\subsubsection{Origen de la fórmula}
+	
+	La serie de Taylor generaliza el polinomio de Taylor. Surge de querer aproximar funciones arbitrarias mediante polinomios cuyas derivadas coincidan con las de la función en un punto.
+	
+	\begin{enumerate}
+		\item Supongamos que $f(x)$ puede escribirse como:
+		\[
+		f(x) = \sum_{n=0}^\infty c_n (x-a)^n
+		\]
+		
+		\item Calcula derivadas en $x = a$:
+		\begin{align*}
+			f(a) &= c_0 \\
+			f'(a) &= c_1 \\
+			f''(a) &= 2! c_2 \\
+			&\vdots \\
+			f^{(n)}(a) &= n! c_n
+		\end{align*}
+		
+		\item Despeja los coeficientes $c_n = \frac{f^{(n)}(a)}{n!}$.
+	\end{enumerate}
+	
+	\subsection{Serie de Maclaurin (caso $a=0$)}
+	
+	\[
+	f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}x^n
+	\]
+	
+	\subsubsection{Ejemplo: $e^x$}
+	
+	Como $\frac{d^n}{dx^n}e^x = e^x$ y $e^0 = 1$:
+	\[
+	e^x = \sum_{n=0}^\infty \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots
+	\]
+	
+	\subsection{Otras series esenciales}
+	
+	\begin{itemize}
+		\item \textbf{Cuadrados}:
+		\[
+		\sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}
+		\]
+		
+		\item \textbf{Cubos} (notablemente, el cuadrado de la suma de Gauss):
+		\[
+		\sum_{k=1}^n k^3 = \left( \frac{n(n+1)}{2} \right)^2
+		\]
+	\end{itemize}
+	
+	\begin{itemize}
+		\item \textbf{Armónica} (divergente pero lentamente):
+		\[
+		\sum_{n=1}^\infty \frac{1}{n} = \infty
+		\]
+		
+		\item \textbf{Armónica alternante} (convergente):
+		\[
+		\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n} = \ln(2)
+		\]
+	\end{itemize}
+	
+	\section{Profundización: De Bernoulli a nuevas distribuciones}
+	
+	Recordemos que en la \textbf{binomial} ($X \sim \text{Bin}(n,p)$) contábamos éxitos en $n$ ensayos \textit{independientes} con probabilidad $p$. Pero, ¿qué pasa cuando la independencia no se cumple?
+	
+	\subsection{Distribución hipergeométrica: Binomial sin reemplazo}
+	
+	\subsubsection{Contexto}
+	Imagina que tienes:
+	\begin{itemize}
+		\item Una urna con $N$ bolas ($K$ éxitos, $N-K$ fracasos)
+		\item Extraes $n$ bolas \textbf{sin reemplazo} (la probabilidad cambia en cada extracción)
+	\end{itemize}
+	
+	$X$: Número de éxitos obtenidos. Entonces $X \sim \text{HGeo}(N,K,n)$.
+	
+	\subsubsection{Ejemplo práctico}
+	En un lote de 50 productos (10 defectuosos), inspeccionas 15 al azar. La probabilidad de encontrar exactamente 3 defectuosos es:
+	\[
+	P(X=3) = \frac{\binom{10}{3}\binom{40}{12}}{\binom{50}{15}}
+	\]
+	
+	\subsubsection{Relación con la binomial}
+	\begin{itemize}
+		\item Si $N \gg n$, la hipergeométrica se aproxima a binomial (pues el no reemplazo afecta poco)
+		\item Ambas modelan conteos de éxitos, pero la hipergeométrica considera dependencia entre ensayos
+	\end{itemize}
+	
+	\subsection{Distribución de Poisson: Binomial con eventos raros}
+	
+	\subsubsection{Contexto}
+	Surge al contar eventos en un intervalo continuo (tiempo, área) cuando:
+	\begin{itemize}
+		\item Los eventos son independientes
+		\item Ocurren con tasa promedio $\lambda$ conocida
+		\item La probabilidad por intervalo pequeño es proporcional a su tamaño
+	\end{itemize}
+	
+	$Y$: Número de eventos en el intervalo. Entonces $Y \sim \text{Poisson}(\lambda)$.
+	
+	\subsubsection{Ejemplo práctico}
+	Si un call center recibe en promedio 5 llamadas por hora, la probabilidad de recibir exactamente 2 llamadas en una hora es:
+	\[
+	P(Y=2) = \frac{e^{-5} \cdot 5^2}{2!}
+	\]
+	
+	\subsubsection{Relación con la binomial}
+	\begin{itemize}
+		\item Es límite de $\text{Bin}(n,p)$ cuando $n \to \infty$, $p \to 0$ con $np = \lambda$ constante
+		\item Útil cuando $n \geq 100$ y $p \leq 0.01$ (regla práctica)
+	\end{itemize}
+	
+	\subsection{¿Cuándo usar cada una?}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\textbf{Distribución} & \textbf{Contexto clave} & \textbf{Dependencia} \\ \hline
+			Binomial & Ensayos independientes con reemplazo & $p$ constante \\ \hline
+			Hipergeométrica & Ensayos \textbf{dependientes} sin reemplazo & $p$ variable \\ \hline
+			Poisson & Eventos raros en intervalo continuo & Tasa $\lambda$ fija \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	
+	\section*{Anexo: pregunta generadora}
+	\begin{verbatim}
+		[[Yo]]: Hola, soy estudiante; no tengo problema con explicaciones técnicas y pruebas,
+		al igual que explicaciones intuitivas.
+		
+		Genera un resumen del contenido de mi clase de Probabilidades en un archivo .tex.
+		
+		Formato: letterpaper, márgenes de 1.27 cm
+		Título: Distribuciones de probabilidad
+		Autor: Fernando González
+		
+		Sección: Teoría
+		Explicar los siguientes temas sin ejemplos. Que sea el intermedio entre breve y detallado.
+		Busca que la fórmula tenga algún desarrollo breve para llegar a ella, y de esta u otra
+		manera poder a acercarme a cómo y por qué funciona esa fórmula.
+		- Definición de variable aleatoria (discreta y continua), con ejemplos
+		- Definición de una distribución de probabilidad
+		- Condiciones necesarias que cumple una distribución de probabilidad
+		- Notación P(X = m), P(x < m), etc.
+		- Distribución acumulada de probabilidad, con ejemplos
+		- Definición de esperanza
+		- Propiedades de la esperanza
+		- Definición de varianza y desviación estándar
+		- Propiedades de la varianza
+		- Distribución de Bernoulli: cuándo sucede, su media y su varianza
+		- Distribución binomial: cuándo sucede, su media y su varianza
+		- Distribución geométrica: cuándo sucede, su media y su varianza
+		
+		Sección: Ejemplos
+		- 3 ejemplos de complejidad media que abarquen los temas de arriba. Explicados
+		(no necesitan ser paso a paso) y con respuesta
+		
+		Sección: Ejercicios
+		- 3 a 5 ejercicios de complejidad media-alta, sin respuesta.
+		
+		[[IA]]: Respuesta 1
+		
+		[[Yo]]: Estoy estudiando Probabilidades. Llegué al tema de introducción a las
+		distribuciones de probabilidad, por lo que necesitaré un repaso de sumatorias y series
+		importantes. Genérame un snippet de LaTeX que contenga estas diferentes series que debería
+		saber, junto con posiblemente sus fórmulas explícitas, y tal vez pruebas de estas fórmulas
+		(las que ayuden a comprender cómo se llega a esa forma). Incluye mínimo las siguientes:
+		- Propiedades de la sumas (suma y resta de sumatorias, constante por sumatoria, etc.)
+		- Suma de Gauss
+		- Propiedades de las series
+		- Suma y serie geométrica
+		- Suma y serie geométrica
+		- Suma y serie telescópica
+		- Binomio de Newton
+		- Serie de Taylor y Maclaurin
+		- Caso particular de e^x
+		- Algunas otras necesarias
+		
+		[[IA]]: Respuesta 2
+		
+		[[Yo]]: Ahora quiero un snippet diferente. Ya vi las distribuciones de experimentos de
+		Bernoulli, junto con la distribución binomial y la geométrica. Entonces hazme un
+		acercamiento a las siguientes distribuciones que veremos: la hipergeométrica y la de
+		Poisson. Posiblemente usando los conceptos aprendidos de las distribuciones anteriores,
+		con un experimento que permita ver la aplicación de esa distribución. No necesitas ahondar
+		mucho, porque pronto me lo explicarán: es un acercamiento.
+		
+		[[IA]]: Respuesta 3
+	\end{verbatim}
+\end{document}
