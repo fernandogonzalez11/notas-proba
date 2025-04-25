@@ -125,6 +125,58 @@
 		\item Tiene la propiedad de "pérdida de memoria": $P(X > m+n | X > m) = P(X > n)$
 	\end{itemize}
 	
+	\subsection{Distribución hipergeométrica}
+	
+	La distribución hipergeométrica modela el número de éxitos en una secuencia de $n$ extracciones \textbf{sin reemplazo} de una población finita de tamaño $N$ que contiene $K$ éxitos y $N-K$ fracasos. A diferencia de la distribución binomial, donde los ensayos son independientes, en la distribución hipergeométrica cada extracción afecta la probabilidad de los resultados posteriores.
+	
+	\subsubsection{Definición formal}
+	
+	Sea $X$ la variable aleatoria que representa el número de éxitos obtenidos en $n$ extracciones sin reemplazo de una población de $N$ elementos, de los cuales $K$ son considerados éxitos y $N-K$ son considerados fracasos. Entonces, la probabilidad de obtener exactamente $x$ éxitos viene dada por la siguiente fórmula:
+	
+	$$
+	P(X=x) = \frac{\binom{K}{x} \binom{N-K}{n-x}}{\binom{N}{n}}
+	$$
+	
+	donde:
+	\begin{itemize}
+		\item $N$: tamaño de la población
+		\item $K$: número de éxitos en la población
+		\item $n$: número de extracciones (tamaño de la muestra)
+		\item $x$: número de éxitos observados en la muestra ($0 \le x \le \min(n, K)$)
+		\item $\binom{a}{b}$: coeficiente binomial, que representa el número de formas de elegir $b$ elementos de un conjunto de $a$ elementos.
+	\end{itemize}
+	
+	Además, se tienen los siguientes datos:
+	\begin{itemize}
+		\item $E[X] = n \frac{K}{N}$
+		\item $\text{Var}(X) = n \frac{K}{N} \left(1 - \frac{K}{N}\right) \frac{N-n}{N-1}$
+	\end{itemize}
+	
+	\subsubsection{Deducción de la fórmula}
+	
+	Podemos entender la fórmula de la siguiente manera:
+	
+	\begin{itemize}
+		\item $\binom{K}{x}$: representa el número de formas de seleccionar $x$ éxitos de los $K$ éxitos disponibles en la población.
+		\item $\binom{N-K}{n-x}$: representa el número de formas de seleccionar $n-x$ fracasos de los $N-K$ fracasos disponibles en la población.
+		\item El producto $\binom{K}{x} \binom{N-K}{n-x}$ da el número total de formas de obtener exactamente $x$ éxitos y $n-x$ fracasos en la muestra de tamaño $n$.
+		\item $\binom{N}{n}$: representa el número total de formas posibles de seleccionar una muestra de tamaño $n$ de la población de tamaño $N$.
+	\end{itemize}
+	
+	Por lo tanto, la probabilidad de obtener exactamente $x$ éxitos es la razón entre el número de resultados favorables (seleccionar $x$ éxitos y $n-x$ fracasos) y el número total de resultados posibles (seleccionar cualquier muestra de tamaño $n$).
+	
+	\subsubsection{Ejemplo práctico}
+	
+	
+	
+	\subsubsection{Relación con la distribución binomial}
+	
+	\begin{itemize}
+		\item \textbf{Aproximación cuando $N \gg n$:} Cuando el tamaño de la población ($N$) es mucho mayor que el tamaño de la muestra ($n$), la diferencia entre muestrear con y sin reemplazo se vuelve insignificante. En este caso, la distribución hipergeométrica puede aproximarse mediante una distribución binomial con probabilidad de éxito $p = K/N$. Intuitivamente, si la muestra es pequeña en comparación con la población, la eliminación de unos pocos elementos no altera significativamente la proporción de éxitos en la población restante.
+		
+		\item \textbf{Naturaleza de los ensayos:} Ambas distribuciones modelan el conteo de éxitos en una serie de ensayos. Sin embargo, la clave de la distinción radica en la independencia de los ensayos. La distribución binomial asume que cada ensayo es independiente, con la misma probabilidad de éxito en cada uno. En contraste, la distribución hipergeométrica modela situaciones donde los ensayos son dependientes debido al muestreo sin reemplazo, lo que hace que la probabilidad de éxito cambie en cada extracción.
+	\end{itemize}
+	
 	\section{Ejemplos}
 	
 	\begin{enumerate}
@@ -134,8 +186,47 @@
 		\item \textbf{Geométrica}: En una línea de producción, un artículo defectuoso aparece con probabilidad 0.01. La probabilidad de que el primer defectuoso sea el décimo artículo es:
 		\[ P(X = 10) = (0.99)^9 (0.01) \approx 0.0091 \]
 		
+		\item \textbf{Hipergeométrica}: En un lote de 50 productos, de los cuales 10 son defectuosos, se inspeccionan 15 productos al azar sin reemplazo. ¿Cuál es la probabilidad de encontrar exactamente 3 productos defectuosos?
+		
+		Aquí, tenemos:
+		\begin{itemize}
+			\item $N = 50$ (tamaño del lote)
+			\item $K = 10$ (número de productos defectuosos)
+			\item $n = 15$ (tamaño de la muestra)
+			\item $x = 3$ (número de productos defectuosos que queremos encontrar)
+		\end{itemize}
+		
+		Aplicando la fórmula de la distribución hipergeométrica:
+		
+		$$
+		P(X=3) = \frac{\binom{10}{3} \binom{50-10}{15-3}}{\binom{50}{15}} = \frac{\binom{10}{3} \binom{40}{12}}{\binom{50}{15}}
+		$$
+		
+		Calculando los coeficientes binomiales:
+		
+		$$
+		\binom{10}{3} = \frac{10!}{3!(10-3)!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = 120
+		$$
+		
+		$$
+		\binom{40}{12} = \frac{40!}{12!(40-12)!} = \frac{40!}{12!28!} = 5,586,853,480
+		$$
+		
+		$$
+		\binom{50}{15} = \frac{50!}{15!(50-15)!} = \frac{50!}{15!35!} = 30,050,029,200
+		$$
+		
+		Sustituyendo estos valores en la fórmula:
+		
+		$$
+		P(X=3) = \frac{120 \times 5,586,853,480}{30,050,029,200} \approx \frac{670,422,417,600}{30,050,029,200} \approx 0.0223
+		$$
+		
+		Por lo tanto, la probabilidad de encontrar exactamente 3 productos defectuosos en la muestra es aproximadamente 0.0223 o 2.23\%.
+		
 		\item \textbf{Esperanza y varianza}: Si $X \sim \text{Binomial}(n=5, p=0.4)$, entonces:
 		\[ E[X] = 5 \times 0.4 = 2, \quad \text{Var}(X) = 5 \times 0.4 \times 0.6 = 1.2 \]
+		
 	\end{enumerate}
 	
 	\section{Ejercicios}
