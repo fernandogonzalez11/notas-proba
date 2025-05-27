@@ -1,0 +1,206 @@
+\documentclass[letterpaper]{article}
+\usepackage[top=1.27cm, bottom=1.27cm, left=1.27cm, right=1.27cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Resumen de Probabilidades: Variables Aleatorias Continuas}
+\author{Fernando González}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Distribución de Variable Aleatoria Continua}
+	Una variable aleatoria continua (v.a.c) es aquella que puede tomar infinitos valores en un intervalo. A diferencia de las discretas, su probabilidad en un punto específico es cero, y se describe mediante una \textbf{función de densidad de probabilidad (fdp)} $f(x)$ que cumple:
+	\begin{itemize}
+		\item $f(x) \geq 0 \quad \forall x \in \mathbb{R}$
+		\item $\int_{-\infty}^{\infty} f(x) \, dx = 1$
+	\end{itemize}
+	
+	\subsection{Propiedades de las v.a.c}
+	\begin{itemize}
+		\item $P(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx$
+		\item $P(X = a) = 0$
+		\item La fdp no representa probabilidad directamente, sino densidad.
+	\end{itemize}
+	
+	\subsection{Distribución Acumulada (CDF)}
+	La función de distribución acumulada $F(x)$ se define como:
+	\[ F(x) = P(X \leq x) = \int_{-\infty}^{x} f(t) \, dt \]
+	Propiedades:
+	\begin{itemize}
+		\item $F(x)$ es no decreciente y continua.
+		\item $\lim_{x \to -\infty} F(x) = 0$, $\lim_{x \to \infty} F(x) = 1$.
+	\end{itemize}
+	
+	\subsection{Media, Varianza y Generadora de Momentos}
+	\begin{itemize}
+		\item \textbf{Media (Valor Esperado)}: $\mu = E[X] = \int_{-\infty}^{\infty} x f(x) \, dx$
+		\item \textbf{Varianza}: $\sigma^2 = Var(X) = E[(X - \mu)^2] = \int_{-\infty}^{\infty} (x - \mu)^2 f(x) \, dx$
+		\item \textbf{Función Generadora de Momentos (MGF)}: $M_X(t) = E[e^{tX}] = \int_{-\infty}^{\infty} e^{tx} f(x) \, dx$
+	\end{itemize}
+	
+	\subsection{Distribución Uniforme Continua}
+	Definición: $X \sim U(a, b)$ tiene fdp constante en $[a, b]$:
+	\[ f(x) = \begin{cases} 
+		\frac{1}{b-a} & \text{si } a \leq x \leq b \\
+		0 & \text{en otro caso}
+	\end{cases} \]
+	\begin{itemize}
+		\item Media: $\mu = \frac{a + b}{2}$
+		\item Varianza: $\sigma^2 = \frac{(b - a)^2}{12}$
+		\item MGF: $M_X(t) = \frac{e^{tb} - e^{ta}}{t(b - a)}$
+	\end{itemize}
+	\underline{Uso}: Modelar situaciones donde todos los resultados en un intervalo son equiprobables (ej. tiempos aleatorios).
+	
+	\subsection{Distribución Exponencial}
+	Definición: $X \sim \text{Exp}(\lambda)$ modela tiempos entre eventos:
+	\[ f(x) = \begin{cases} 
+		\lambda e^{-\lambda x} & x \geq 0 \\
+		0 & x < 0
+	\end{cases} \]
+	\begin{itemize}
+		\item Media: $\mu = \frac{1}{\lambda}$
+		\item Varianza: $\sigma^2 = \frac{1}{\lambda^2}$
+		\item MGF: $M_X(t) = \frac{\lambda}{\lambda - t}$ (para $t < \lambda$)
+	\end{itemize}
+	\underline{Uso}: Procesos sin memoria (ej. tiempo de falla de componentes).
+	
+	\subsection{Distribución Normal}
+	Definición: $X \sim N(\mu, \sigma^2)$ con fdp:
+	\[ f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} \]
+	\begin{itemize}
+		\item Media: $\mu$
+		\item Varianza: $\sigma^2$
+		\item MGF: $M_X(t) = e^{\mu t + \frac{\sigma^2 t^2}{2}}$
+	\end{itemize}
+	\underline{Uso}: Fenómenos naturales, errores de medición (Teorema del Límite Central).
+	
+	\subsubsection{Normal Estándar y Propiedades}
+	La distribución normal estándar \( Z \sim N(0, 1) \) es un caso particular de la normal con media \(\mu = 0\) y varianza \(\sigma^2 = 1\). Su función de densidad de probabilidad (fdp) es:
+	\[ \phi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}, \quad z \in \mathbb{R}. \]
+	
+	\underline{Transformación a Normal Estándar}:
+	Dada \( X \sim N(\mu, \sigma^2) \), la estandarización se realiza mediante el cambio de variable:
+	\[ Z = \frac{X - \mu}{\sigma}. \]
+	Este cambio lineal preserva las propiedades de la normal y permite convertir cualquier v.a.c normal \( X \) en \( Z \). 
+	
+	\underline{Desarrollo de la Transformación}:
+	
+	1. \textbf{Función de Distribución Acumulada (CDF)}: 
+	\[ P(X \leq x) = \int_{-\infty}^{x} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(t - \mu)^2}{2\sigma^2}} \, dt. \]
+	2. Aplicando el cambio de variable \( z = \frac{t - \mu}{\sigma} \) (con \( dz = \frac{dt}{\sigma} \)):
+	\[ P(X \leq x) = \int_{-\infty}^{\frac{x - \mu}{\sigma}} \frac{1}{\sqrt{2\pi}} e^{-z^2/2} \, dz = \Phi\left(\frac{x - \mu}{\sigma}\right), \]
+	donde \(\Phi(z)\) es la CDF de la normal estándar:
+	\[ \Phi(z) = \int_{-\infty}^{z} \phi(u) \, du = P(Z \leq z). \]
+	
+	\underline{Uso de \(\Phi(z)\)}:
+	\begin{itemize}
+		\item \(\Phi(z)\) está tabulada y es fundamental para calcular probabilidades. Por ejemplo:
+		\[ P(a \leq X \leq b) = \Phi\left(\frac{b - \mu}{\sigma}\right) - \Phi\left(\frac{a - \mu}{\sigma}\right). \]
+		\item Simetría: \(\Phi(-z) = 1 - \Phi(z)\).
+		\item Para valores negativos de \(z\), se usan tablas o propiedades de simetría.
+	\end{itemize}
+	
+	\underline{Ejemplo de Aplicación}:
+	Si \( X \sim N(100, 25) \) (\(\sigma = 5\)), calcular \( P(X \leq 110) \):
+	\[ z = \frac{110 - 100}{5} = 2 \quad \Rightarrow \quad P(X \leq 110) = \Phi(2) \approx 0.9772. \]
+	
+	\underline{Propiedades}:
+	\begin{itemize}
+		\item \textbf{Linealidad}: $aX + b \sim N(a\mu + b, a^2 \sigma^2)$
+		\item \textbf{Suma}: Si $X \sim N(\mu_1, \sigma_1^2)$, $Y \sim N(\mu_2, \sigma_2^2)$, entonces:
+		\[ X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2) \]
+		\item \textbf{Promedio}: Si $X_i \sim N(\mu, \sigma^2)$, entonces:
+		\[ \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \sim N\left(\mu, \frac{\sigma^2}{n}\right) \]
+		Esto es clave para inferencia estadística.
+	\end{itemize}
+	
+	\section{Ejemplos}
+	
+	\subsection{Ejemplo 1: Uniforme Continua}
+	El tiempo de espera (en minutos) en un semáforo sigue una distribución uniforme $X \sim U(0, 3)$. Calcular la probabilidad de que el tiempo de espera esté entre 1 y 2.5 minutos.
+	
+	\underline{Explicación}:
+	Para una distribución uniforme continua en el intervalo $[a, b]$, la probabilidad de que $X$ esté en un subintervalo $[c, d]$ es proporcional a la longitud de dicho subintervalo:
+	\[ P(c < X < d) = \frac{d - c}{b - a} \]
+	
+	\underline{Desarrollo}:
+	\begin{itemize}
+		\item Intervalo total: $[0, 3]$ (duración $3$ minutos)
+		\item Subintervalo deseado: $[1, 2.5]$ (duración $1.5$ minutos)
+		\item Cálculo: 
+		\[ P(1 < X < 2.5) = \frac{2.5 - 1}{3 - 0} = \frac{1.5}{3} = 0.5 \]
+	\end{itemize}
+	
+	\underline{Interpretación}: Hay un 50\% de probabilidad de que el tiempo de espera en el semáforo esté entre 1 y 2.5 minutos.
+	
+	\subsection{Ejemplo 2: Exponencial}
+	La vida útil de un componente electrónico sigue una distribución exponencial $X \sim \text{Exp}(0.01)$, donde $\lambda = 0.01$ fallas por hora. Calcular la probabilidad de que el componente dure más de 120 horas.
+	
+	\underline{Explicación}:
+	La distribución exponencial modela tiempos entre eventos con tasa constante $\lambda$. Su función de supervivencia es:
+	\[ P(X > x) = e^{-\lambda x} \]
+	
+	\underline{Desarrollo}:
+	\begin{itemize}
+		\item Parámetro $\lambda = 0.01$ (1 falla cada 100 horas en promedio)
+		\item Probabilidad solicitada: $P(X > 120)$
+		\item Cálculo:
+		\[ P(X > 120) = e^{-0.01 \times 120} = e^{-1.2} \approx 0.3012 \]
+	\end{itemize}
+	
+	\underline{Interpretación}: Hay aproximadamente un 30.12\% de probabilidad de que el componente funcione más de 120 horas sin fallar.
+	
+	\subsection{Ejemplo 3: Normal}
+	Las calificaciones de un examen siguen una distribución normal $X \sim N(70, 10^2)$, con media $\mu = 70$ y desviación estándar $\sigma = 10$. Calcular la probabilidad de que un estudiante seleccionado al azar obtenga entre 60 y 85 puntos.
+	
+	\underline{Explicación}:
+	Para calcular probabilidades en una distribución normal:
+	1. Estandarizar los valores a la normal estándar $Z \sim N(0, 1)$.
+	2. Usar tablas de $\Phi(z)$ o software para encontrar las probabilidades acumuladas.
+	
+	\underline{Desarrollo}:
+	\begin{itemize}
+		\item Estandarización:
+		\[ Z_1 = \frac{60 - 70}{10} = -1 \quad \text{(límite inferior)} \]
+		\[ Z_2 = \frac{85 - 70}{10} = 1.5 \quad \text{(límite superior)} \]
+		
+		\item Cálculo con tabla de $Z$:
+		\[ P(-1 < Z < 1.5) = \Phi(1.5) - \Phi(-1) \]
+		\[ \Phi(1.5) \approx 0.9332 \]
+		\[ \Phi(-1) = 1 - \Phi(1) \approx 1 - 0.8413 = 0.1587 \]
+		\[ P(-1 < Z < 1.5) \approx 0.9332 - 0.1587 = 0.7745 \]
+	\end{itemize}
+	
+	\underline{Interpretación}: Hay un 77.45\% de probabilidad de que un estudiante obtenga una calificación entre 60 y 85 puntos. La estandarización permite usar propiedades universales de la normal estándar.
+	
+	\section{Ejercicios}
+	
+	\subsection{Ejercicio 1}
+	Sea $X \sim U(2, 8)$. Calcular:
+	\begin{itemize}
+		\item $P(3 \leq X \leq 7)$
+		\item El valor de $k$ tal que $P(X > k) = 0.4$
+	\end{itemize}
+	
+	\subsection{Ejercicio 2}
+	El tiempo entre llegadas a una estación sigue $\text{Exp}(\lambda = 5)$ (min). Determine:
+	\begin{itemize}
+		\item Probabilidad de que la próxima llegada ocurra en menos de 30 segundos.
+		\item El tiempo $t$ tal que $P(X \leq t) = 0.9$.
+	\end{itemize}
+	
+	\subsection{Ejercicio 3}
+	Sean $X \sim N(50, 16)$ e $Y \sim N(60, 25)$ independientes. Calcular:
+	\begin{itemize}
+		\item $P(X + Y > 120)$
+		\item $P(\bar{Y} < 58)$ para $n = 4$ observaciones.
+	\end{itemize}
+	
+	\subsection{Ejercicio 4}
+	Demuestre que si $X \sim N(\mu, \sigma^2)$, entonces $M_X(t) = e^{\mu t + \frac{\sigma^2 t^2}{2}}$.
+	
+\end{document}
