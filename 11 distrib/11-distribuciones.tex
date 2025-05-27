@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 % \usepackage[spanish]{babel}
 \usepackage{amsmath, amssymb}
+\usepackage{amsthm}
 
 \title{Distribuciones de probabilidad}
 \author{Fernando González}
@@ -177,6 +178,107 @@
 		\item \textbf{Naturaleza de los ensayos:} Ambas distribuciones modelan el conteo de éxitos en una serie de ensayos. Sin embargo, la clave de la distinción radica en la independencia de los ensayos. La distribución binomial asume que cada ensayo es independiente, con la misma probabilidad de éxito en cada uno. En contraste, la distribución hipergeométrica modela situaciones donde los ensayos son dependientes debido al muestreo sin reemplazo, lo que hace que la probabilidad de éxito cambie en cada extracción.
 	\end{itemize}
 	
+	\subsection{Distribución de Poisson}
+	Modela el número de eventos raros que ocurren en un intervalo fijo de tiempo o espacio, bajo ciertas condiciones específicas. Es fundamental en procesos donde observamos ocurrencias discretas en un continuo.
+	
+	\subsubsection{Contexto y condiciones}
+	La distribución Poisson surge cuando:
+	\begin{itemize}
+		\item \textbf{Independencia}: Los eventos ocurren de forma independiente (la ocurrencia de uno no afecta a otros).
+		\item \textbf{Tasa constante}: Los eventos ocurren a una tasa promedio $\lambda$ conocida y constante.
+		\item \textbf{Rareza}: Para intervalos muy pequeños $\Delta t$, la probabilidad de exactamente un evento es aproximadamente $\lambda \Delta t$, y la de más de uno es despreciable.
+	\end{itemize}
+	
+	\subsubsection{Función de distribución}
+	Para $Y \sim \text{Poisson}(\lambda)$, la probabilidad de observar exactamente $k$ eventos es:
+	\[
+	P(Y = k) = \frac{e^{-\lambda} \lambda^k}{k!}, \quad k = 0,1,2,...
+	\]
+	donde:
+	\begin{itemize}
+		\item $e \approx 2.71828$ es la base del logaritmo natural
+		\item $k!$ es el factorial de $k$
+		\item $\lambda > 0$ es el parámetro de tasa
+	\end{itemize}
+	
+	\subsubsection{Derivación (relación con Binomial)}
+	La Poisson puede obtenerse como límite de una Binomial cuando:
+	\[
+	\text{Binomial}(n,p) \to \text{Poisson}(\lambda) \quad \text{cuando} \quad n \to \infty, p \to 0 \quad \text{con} \quad np = \lambda
+	\]
+	\begin{proof}
+		Partiendo de la PMF Binomial:
+		\[
+		P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}
+		\]
+		Sustituyendo $p = \lambda/n$:
+		\[
+		= \frac{n!}{k!(n-k)!} \left(\frac{\lambda}{n}\right)^k \left(1-\frac{\lambda}{n}\right)^{n-k}
+		\]
+		Tomando límite cuando $n \to \infty$:
+		\[
+		= \frac{\lambda^k}{k!} \left(1-\frac{\lambda}{n}\right)^n \underbrace{\frac{n(n-1)\cdots(n-k+1)}{n^k}}_{\to 1} \underbrace{\left(1-\frac{\lambda}{n}\right)^{-k}}_{\to 1}
+		\]
+		Recordando que $\lim_{n\to\infty}(1+\frac{x}{n})^n = e^x$, obtenemos:
+		\[
+		= \frac{e^{-\lambda} \lambda^k}{k!}
+		\]
+	\end{proof}
+	
+	\subsubsection*{Propiedades}
+	\begin{itemize}
+		\item \textbf{Esperanza}: $E[Y] = \lambda$
+		\begin{proof}
+			\[
+			E[Y] = \sum_{k=0}^\infty k \frac{e^{-\lambda} \lambda^k}{k!} = e^{-\lambda} \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k-1)!} = e^{-\lambda} \lambda e^{\lambda} = \lambda
+			\]
+		\end{proof}
+		
+		\item \textbf{Varianza}: $\text{Var}(Y) = \lambda$ (propiedad única: media = varianza)
+		\begin{proof}
+			Primero calculamos $E[Y(Y-1)]$:
+			\[
+			\sum_{k=0}^\infty k(k-1) \frac{e^{-\lambda} \lambda^k}{k!} = \lambda^2 e^{-\lambda} \sum_{k=2}^\infty \frac{\lambda^{k-2}}{(k-2)!} = \lambda^2
+			\]
+			Luego:
+			\[
+			\text{Var}(Y) = E[Y^2] - (E[Y])^2 = E[Y(Y-1)] + E[Y] - \lambda^2 = \lambda^2 + \lambda - \lambda^2 = \lambda
+			\]
+		\end{proof}
+		
+		\item \textbf{Aditividad}: Si $Y_1 \sim \text{Poisson}(\lambda_1)$ y $Y_2 \sim \text{Poisson}(\lambda_2)$ son independientes, entonces:
+		\[
+		Y_1 + Y_2 \sim \text{Poisson}(\lambda_1 + \lambda_2)
+		\]
+	\end{itemize}
+	
+	\subsubsection*{Ejemplo aplicado}
+	Para un call center que recibe en promedio $\lambda = 5$ llamadas por hora:
+	\begin{itemize}
+		\item Probabilidad de recibir exactamente 2 llamadas:
+		\[
+		P(Y=2) = \frac{e^{-5} 5^2}{2!} \approx 0.0842
+		\]
+		
+		\item Probabilidad de recibir al menos 3 llamadas:
+		\[
+		P(Y \geq 3) = 1 - P(Y \leq 2) = 1 - \left(\frac{e^{-5}5^0}{0!} + \frac{e^{-5}5^1}{1!} + \frac{e^{-5}5^2}{2!}\right) \approx 0.875
+		\]
+		
+		\item Número esperado de llamadas en 3 horas:
+		\[
+		E[Y_{3h}] = 3 \times 5 = 15 \quad \text{(por propiedad de escalamiento)}
+		\]
+	\end{itemize}
+	
+	\subsubsection*{Aplicaciones típicas}
+	\begin{itemize}
+		\item Modelar llegadas a colas (sistemas de servicio)
+		\item Número de fallas en materiales por área
+		\item Eventos meteorológicos raros en una región
+		\item Errores de tipeo por página
+	\end{itemize}
+	
 	\section{Ejemplos}
 	
 	\begin{enumerate}
@@ -227,6 +329,18 @@
 		\item \textbf{Esperanza y varianza}: Si $X \sim \text{Binomial}(n=5, p=0.4)$, entonces:
 		\[ E[X] = 5 \times 0.4 = 2, \quad \text{Var}(X) = 5 \times 0.4 \times 0.6 = 1.2 \]
 		
+		\item \textbf{Poisson}: Un servidor web recibe en promedio 8 solicitudes por minuto. La probabilidad de recibir exactamente 5 solicitudes en un minuto dado es:
+		
+		\[
+		P(X = 5) = \frac{e^{-8} \cdot 8^5}{5!} = \frac{e^{-8} \cdot 32768}{120} \approx 0.0916
+		\]
+		
+		Y la probabilidad de recibir al menos 2 solicitudes en 30 segundos (con $\lambda = 4$ para medio minuto):
+		
+		\[
+		P(X \geq 2) = 1 - P(X \leq 1) = 1 - \left( \frac{e^{-4} \cdot 4^0}{0!} + \frac{e^{-4} \cdot 4^1}{1!} \right) \approx 0.9084
+		\]
+		
 	\end{enumerate}
 	
 	\section{Ejercicios}
@@ -241,6 +355,12 @@
 		\item Si $X$ e $Y$ son independientes con $E[X] = 3$, $\text{Var}(X) = 2$, $E[Y] = -1$, $\text{Var}(Y) = 4$, calcula $E[2X - Y + 1]$ y $\text{Var}(2X - Y + 1)$.
 		
 		\item Una v.a. continua tiene PDF $f(x) = kx^2$ para $0 \leq x \leq 2$ y 0 en otro caso. Determina $k$ y calcula $P(0.5 \leq X \leq 1.5)$.
+		
+		\item Un sistema de monitoreo detecta falsas alarmas siguiendo un proceso de Poisson con tasa de 2 alarmas por hora. Calcula:
+		\begin{enumerate}
+			\item La probabilidad de que ocurran exactamente 3 falsas alarmas en 2 horas.
+			\item El tiempo máximo $t$ (en minutos) para que la probabilidad de no detectar falsas alarmas sea al menos 30\%.
+		\end{enumerate}
 	\end{enumerate}
 	
 	\section{Profundización: repaso de sumas y series}
@@ -415,70 +535,7 @@
 		\[
 		\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n} = \ln(2)
 		\]
-	\end{itemize}
-	
-	\section{Profundización: De Bernoulli a nuevas distribuciones}
-	
-	Recordemos que en la \textbf{binomial} ($X \sim \text{Bin}(n,p)$) contábamos éxitos en $n$ ensayos \textit{independientes} con probabilidad $p$. Pero, ¿qué pasa cuando la independencia no se cumple?
-	
-	\subsection{Distribución hipergeométrica: Binomial sin reemplazo}
-	
-	\subsubsection{Contexto}
-	Imagina que tienes:
-	\begin{itemize}
-		\item Una urna con $N$ bolas ($K$ éxitos, $N-K$ fracasos)
-		\item Extraes $n$ bolas \textbf{sin reemplazo} (la probabilidad cambia en cada extracción)
-	\end{itemize}
-	
-	$X$: Número de éxitos obtenidos. Entonces $X \sim \text{HGeo}(N,K,n)$.
-	
-	\subsubsection{Ejemplo práctico}
-	En un lote de 50 productos (10 defectuosos), inspeccionas 15 al azar. La probabilidad de encontrar exactamente 3 defectuosos es:
-	\[
-	P(X=3) = \frac{\binom{10}{3}\binom{40}{12}}{\binom{50}{15}}
-	\]
-	
-	\subsubsection{Relación con la binomial}
-	\begin{itemize}
-		\item Si $N \gg n$, la hipergeométrica se aproxima a binomial (pues el no reemplazo afecta poco)
-		\item Ambas modelan conteos de éxitos, pero la hipergeométrica considera dependencia entre ensayos
-	\end{itemize}
-	
-	\subsection{Distribución de Poisson: Binomial con eventos raros}
-	
-	\subsubsection{Contexto}
-	Surge al contar eventos en un intervalo continuo (tiempo, área) cuando:
-	\begin{itemize}
-		\item Los eventos son independientes
-		\item Ocurren con tasa promedio $\lambda$ conocida
-		\item La probabilidad por intervalo pequeño es proporcional a su tamaño
-	\end{itemize}
-	
-	$Y$: Número de eventos en el intervalo. Entonces $Y \sim \text{Poisson}(\lambda)$.
-	
-	\subsubsection{Ejemplo práctico}
-	Si un call center recibe en promedio 5 llamadas por hora, la probabilidad de recibir exactamente 2 llamadas en una hora es:
-	\[
-	P(Y=2) = \frac{e^{-5} \cdot 5^2}{2!}
-	\]
-	
-	\subsubsection{Relación con la binomial}
-	\begin{itemize}
-		\item Es límite de $\text{Bin}(n,p)$ cuando $n \to \infty$, $p \to 0$ con $np = \lambda$ constante
-		\item Útil cuando $n \geq 100$ y $p \leq 0.01$ (regla práctica)
-	\end{itemize}
-	
-	\subsection{¿Cuándo usar cada una?}
-	\begin{center}
-		\begin{tabular}{|l|l|l|}
-			\hline
-			\textbf{Distribución} & \textbf{Contexto clave} & \textbf{Dependencia} \\ \hline
-			Binomial & Ensayos independientes con reemplazo & $p$ constante \\ \hline
-			Hipergeométrica & Ensayos \textbf{dependientes} sin reemplazo & $p$ variable \\ \hline
-			Poisson & Eventos raros en intervalo continuo & Tasa $\lambda$ fija \\ \hline
-		\end{tabular}
-	\end{center}
-	
+	\end{itemize}	
 	
 	\section*{Anexo: pregunta generadora}
 	\begin{verbatim}
