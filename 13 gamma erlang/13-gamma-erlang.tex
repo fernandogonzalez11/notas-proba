@@ -1,0 +1,203 @@
+\documentclass[letterpaper]{article}
+\usepackage[top=1.27cm, bottom=1.27cm, left=1.27cm, right=1.27cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{La distribución gamma}
+\author{Fernando González}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Teoría}
+	
+	\subsection{Función gamma}
+	La función gamma $\Gamma(\alpha)$ es una extensión del factorial a números reales positivos. Se define como:
+	\[
+	\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t} dt, \quad \alpha > 0
+	\]
+	Propiedades clave:
+	\begin{itemize}
+		\item $\Gamma(n) = (n-1)!$ para $n \in \mathbb{N}$
+		\item $\Gamma(\alpha+1) = \alpha \Gamma(\alpha)$ (relación de recurrencia)
+		\item $\Gamma(1/2) = \sqrt{\pi}$ (demostrable con integral doble polar)
+	\end{itemize}
+	
+	\subsection{Distribución gamma}
+	Una variable aleatoria $X$ sigue una distribución gamma $X \sim \text{Gamma}(\alpha, \beta)$ si su densidad es:
+	\[
+	f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}, \quad x > 0
+	\]
+	\begin{itemize}
+		\item $\alpha$: parámetro de forma (controla la asimetría)
+		\item $\beta$: parámetro de tasa (inverso de la escala)
+	\end{itemize}
+	
+	Caso especial: Cuando $\alpha=1$, se obtiene la exponencial $X \sim \text{Exp}(\beta)$.
+	
+	La distribución gamma tiene aplicaciones clave en:
+	\begin{itemize}
+		\item \textbf{Modelado de tiempos de espera}: Para eventos que ocurren de forma continua en el tiempo, especialmente cuando los eventos no son memoria-less (a diferencia de la exponencial).
+		
+		\item \textbf{Fiabilidad y supervivencia}: Modela tiempos de fallo para sistemas con múltiples componentes o etapas de desgaste.
+		
+		\item \textbf{Economía y finanzas}: Describe distribuciones de ingresos, tamaños de reclamaciones de seguros, o volatilidad en mercados financieros.
+		
+		\item \textbf{Meteorología}: Modela cantidades de precipitación acumulada en periodos de tiempo.
+		
+		\item \textbf{Procesos bayesianos}: Sirve como distribución conjugada previa para parámetros de distribuciones exponenciales y Poisson.
+	\end{itemize}
+	
+	\subsection{Gamma incompleta}
+	La función gamma incompleta se define como:
+	\[
+	\Gamma(\alpha, x) = \int_x^\infty t^{\alpha-1} e^{-t} dt
+	\]
+	Relacionada con la CDF de la distribución gamma.
+	
+	\subsection{Distribución de Erlang}
+	Caso particular de la gamma cuando $\alpha = k \in \mathbb{N}$ (entero). Modela:
+	\begin{itemize}
+		\item Tiempo hasta $k$-ésimo evento en proceso Poisson
+		\item Suma de $k$ exponenciales i.i.d.
+	\end{itemize}
+	Su CDF puede expresarse usando:
+	\[
+	P(X \leq x) = 1 - \sum_{n=0}^{k-1} \frac{(\beta x)^n}{n!} e^{-\beta x}
+	\]
+	
+	\subsection{Conexión con procesos Poisson}
+	Para un proceso Poisson con tasa $\lambda$:
+	\begin{itemize}
+		\item Tiempo hasta $k$-ésimo evento $\sim \text{Gamma}(k, \lambda)$
+		\item Probabilidad de esperar $>t$ para $k$ eventos: $P(T > t) = \sum_{n=0}^{k-1} \frac{(\lambda t)^n}{n!} e^{-\lambda t}$
+
+		\item El tiempo entre $k$ eventos consecutivos sigue una distribución de Erlang (caso especial de gamma con $\alpha=k$ entero).
+		
+		\item Formalmente, si $T_k$ es el tiempo hasta el $k$-ésimo evento:
+		\[ T_k \sim \text{Gamma}(k, \lambda) \]
+		con función de densidad:
+		\[ f_{T_k}(t) = \frac{\lambda^k t^{k-1} e^{-\lambda t}}{(k-1)!} \]
+		
+		\item Cuando $k=1$, recuperamos la distribución exponencial $\text{Exp}(\lambda)$.
+	\end{itemize}
+	
+	\section{Ejemplos}
+	
+	\subsection{Ejemplo 1: Cálculo de $\Gamma(1/2)$}
+	Partimos de la definición:
+	\[ \Gamma(1/2) = \int_0^\infty t^{-1/2} e^{-t} dt \]
+	
+	\textbf{Paso 1: Elevamos al cuadrado}:
+	\[ \Gamma(1/2)^2 = \left( \int_0^\infty x^{-1/2} e^{-x} dx \right) \left( \int_0^\infty y^{-1/2} e^{-y} dy \right) = \iint_{\mathbb{R}_+^2} (xy)^{-1/2} e^{-(x+y)} dx dy \]
+	
+	\textbf{Paso 2: Cambio a coordenadas polares}:
+	\begin{itemize}
+		\item Sustituimos $x = r \cos^2 \theta$, $y = r \sin^2 \theta$
+		\item El jacobiano es $|J| = 2r \sin \theta \cos \theta$
+		\item Los límites: $r \in (0, \infty)$, $\theta \in (0, \pi/2)$
+	\end{itemize}
+	
+	\textbf{Paso 3: Reescribimos la integral}:
+	\[ \Gamma(1/2)^2 = \int_0^{\pi/2} \int_0^\infty \frac{1}{r \sin \theta \cos \theta} e^{-r^2} 2r \sin \theta \cos \theta \, dr d\theta \]
+	\[ = 2 \int_0^{\pi/2} d\theta \int_0^\infty e^{-r^2} dr = \pi \]
+	
+	\textbf{Resultado final}: $\Gamma(1/2) = \sqrt{\pi}$.
+	
+	\subsection{Ejemplo 2: Tiempo entre buses}
+	Los buses llegan a una estación siguiendo Poisson con $\lambda=8$/hora. Calcular probabilidad de esperar $>6$ horas para 50 buses.
+	
+	\underline{Solución}:
+	\begin{itemize}
+		\item Tiempo $T \sim \text{Gamma}(50, 8)$
+		\item Usando aproximación normal ($\mu=50/8$, $\sigma^2=50/64$):
+		\[
+		P(T>6) \approx P\left(Z > \frac{6-6.25}{0.625}\right) \approx 0.6554
+		\]
+	\end{itemize}
+	
+	\subsection{Ejemplo 3: Suma de exponenciales}
+	Sean $X_1, \ldots, X_{10} \sim \text{Exp}(2)$ i.i.d. Hallar $P(\sum X_i > 6)$.
+	
+	\underline{Solución}:
+	\begin{itemize}
+		\item $Y = \sum X_i \sim \text{Gamma}(10, 2)$
+		\item Cálculo exacto con software: $P(Y>6) \approx 0.849$
+	\end{itemize}
+	
+	\section{Ejercicios}
+	
+	\subsection{Ejercicio 1}
+	Demuestre que si $X \sim \text{Gamma}(\alpha, \beta)$, entonces $kX \sim \text{Gamma}(\alpha, \beta/k)$ para $k>0$.
+	
+	\subsection{Ejercicio 2}
+	Calcule $E[X^3]$ para $X \sim \text{Gamma}(\alpha, \beta)$ usando la función generadora de momentos.
+	
+	\subsection{Ejercicio 3}
+	En un proceso Poisson con $\lambda=5$/hora, encuentre el tiempo $t$ tal que $P(\text{3er evento} > t) = 0.05$.
+	
+	\subsection{Ejercicio 4}
+	Sean $X \sim \text{Gamma}(2, 3)$ y $Y \sim \text{Gamma}(4, 3)$ independientes. Derive la distribución de $X+Y$.
+	
+\section*{Anexos: Suma de exponenciales como gamma}
+Sean $X_1, \ldots, X_n \sim \text{Exp}(\lambda)$ i.i.d. La suma $S_n = \sum_{i=1}^n X_i$ sigue una distribución gamma porque:
+
+\textbf{Prueba por convolución}:
+\begin{itemize}
+	\item Para $n=2$: La convolución de dos exponenciales es:
+	\[ f_{S_2}(s) = \int_0^s \lambda e^{-\lambda x} \lambda e^{-\lambda (s-x)} dx = \lambda^2 s e^{-\lambda s} \]
+	que es $\text{Gamma}(2, \lambda)$.
+	
+	\item Por inducción: Si $S_{n-1} \sim \text{Gamma}(n-1, \lambda)$, entonces:
+	\[ f_{S_n}(s) = \int_0^s \frac{\lambda^{n-1} t^{n-2} e^{-\lambda t}}{(n-2)!} \lambda e^{-\lambda (s-t)} dt = \frac{\lambda^n s^{n-1} e^{-\lambda s}}{(n-1)!} \]
+	que es $\text{Gamma}(n, \lambda)$.
+\end{itemize}
+
+\textbf{Intuición}: Cada exponencial modela el tiempo entre eventos Poisson, y su suma modela el tiempo total para $n$ eventos.
+	
+\section*{Anexos: pregunta generadora}
+
+\begin{verbatim}
+	Hola, soy estudiante; no tengo problema con explicaciones técnicas y pruebas, al igual que 
+	explicaciones intuitivas.
+	
+	Genera un resumen del contenido de mi clase de Probabilidades en un archivo .tex.
+	
+	Formato: letterpaper, márgenes de 1.27 cm
+	Título: La distribución gamma
+	Autor: Fernando González
+	Secciones: con \section{}, sin asterisco
+	Nombres de secciones: primera letra en mayúscula, todas las demás no (estándar RAE)
+	
+	Sección: Teoría
+	Explicar los siguientes temas sin ejemplos. Explica la teoría detalladamente, luego introduce las fórmulas.
+	Busca que la fórmula tenga algún desarrollo breve para llegar a ella, y de esta u otra manera poder
+	acercarme a cómo y por qué funciona esa fórmula.
+	- La función gamma: cómo se define, para qué más se usa además de esta distribución
+	- Propiedades de la función gamma
+	- Cómo obtener gamma(1/2) haciendo una doble integral con barrido por ángulo en lugar de solo integrar el
+	área bajo la curva
+	- Distribución gamma
+	- Si \alpha=1 \beta=\beta, X sigue exp(\frac{1}{\beta})
+	- Gamma incompleta
+	- Distribución de Erlang, bien explicada. Cómo se define, para qué se usa. Asociar con la distribución
+	gamma explicada anteriormente
+	- Usar la distribución de Erlang para obtener la probabilidad de esperar una cierta cantidad de tiempo
+	a un evento Poisson.
+	
+	Sección: Ejemplos
+	- 3 ejemplos de complejidad media que abarquen los temas de arriba. Explicados (no necesitan ser paso a
+	paso) y con respuesta
+	
+	Que uno de ellos resuelva lo siguiente:
+	
+	Los buses llegan a una estación siguiendo una variable aleatoria discreta Poisson con promedio 8 veces
+	por hora. Alguien se sienta a esperar hasta que lleguen 50 buses. ¿Cuál es la probabilidad de que deba
+	esperar 6+ horas?
+	
+	Sección: Ejercicios
+	- 3 a 5 ejercicios de complejidad media-alta, sin respuesta.
+\end{verbatim}
+
+\end{document}
